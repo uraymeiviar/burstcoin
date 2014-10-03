@@ -21,6 +21,11 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.eclipse.jetty.servlets.GzipFilter;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
+import org.eclipse.jetty.security.ConstraintSecurityHandler;
+import org.eclipse.jetty.util.security.Constraint;
+import org.eclipse.jetty.security.ConstraintMapping;
+import org.eclipse.jetty.rewrite.handler.HeaderPatternRule;
+import org.eclipse.jetty.rewrite.handler.RewriteHandler;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -49,6 +54,8 @@ public final class API {
             final String host = Nxt.getStringProperty("nxt.apiServerHost");
             apiServer = new Server();
             ServerConnector connector;
+            ConstraintSecurityHandler security = null;
+            HandlerList apiHandlers = new HandlerList();
 
             boolean enableSSL = Nxt.getBooleanProperty("nxt.apiSSL");
             if (enableSSL) {
@@ -58,13 +65,65 @@ public final class API {
                 https_config.setSecurePort(port);
                 https_config.addCustomizer(new SecureRequestCustomizer());
                 SslContextFactory sslContextFactory = new SslContextFactory();
+                sslContextFactory.setTrustAll(true);
+                sslContextFactory.setNeedClientAuth(false);
+                sslContextFactory.setWantClientAuth(false);
+                sslContextFactory.setValidateCerts(false);
+                sslContextFactory.setRenegotiationAllowed(false);
                 sslContextFactory.setKeyStorePath(Nxt.getStringProperty("nxt.keyStorePath"));
                 sslContextFactory.setKeyStorePassword(Nxt.getStringProperty("nxt.keyStorePassword"));
+                sslContextFactory.setIncludeCipherSuites("TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384",
+                                                         "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+                                                         "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384",
+                                                         "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA");
                 sslContextFactory.setExcludeCipherSuites("SSL_RSA_WITH_DES_CBC_SHA", "SSL_DHE_RSA_WITH_DES_CBC_SHA",
                         "SSL_DHE_DSS_WITH_DES_CBC_SHA", "SSL_RSA_EXPORT_WITH_RC4_40_MD5", "SSL_RSA_EXPORT_WITH_DES40_CBC_SHA",
                         "SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA", "SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA");
-                connector = new ServerConnector(apiServer, new SslConnectionFactory(sslContextFactory, "http/1.1"),
-                        new HttpConnectionFactory(https_config));
+                
+                connector = new ServerConnector(apiServer,
+                                                new SslConnectionFactory(sslContextFactory, "http/1.1"),
+                                                new HttpConnectionFactory(https_config));
+                
+                boolean enableRedirectionToSSL = Nxt.getBooleanProperty("nxt.apiRedirectToSSL");
+                if(enableRedirectionToSSL){
+                    int nonSSLSourcePort = Nxt.getIntProperty("nxt.apiRedirectToSSLSourcePort");
+                    HttpConfiguration http_config = new HttpConfiguration();
+                    http_config.addCustomizer(new SecureRequestCustomizer());
+                    http_config.setSecureScheme("https");
+                    http_config.setSecurePort(port);
+                    
+                    ServerConnector httpConnector = new ServerConnector(apiServer);
+                    httpConnector.addConnectionFactory(new HttpConnectionFactory(http_config));
+                    httpConnector.setPort(nonSSLSourcePort);
+                    httpConnector.setHost(host);
+                    httpConnector.setReuseAddress(true);
+                    
+                    Constraint constraint = new Constraint();
+                    constraint.setDataConstraint(Constraint.DC_CONFIDENTIAL);
+                    
+                    ConstraintMapping mapping = new ConstraintMapping();
+                    mapping.setPathSpec( "/*" );
+                    mapping.setConstraint( constraint );
+                    
+                    security = new ConstraintSecurityHandler();
+                    security.addConstraintMapping(mapping);
+                    apiServer.addConnector(httpConnector);
+                }
+                
+                boolean enableStrictTransportSecurity = Nxt.getBooleanProperty("nxt.enableStrictTransportSecurity");
+                
+                if(enableStrictTransportSecurity){
+                    HeaderPatternRule headerPatternRule = new HeaderPatternRule();
+                    headerPatternRule.setName("Strict-Transport-Security");
+                    headerPatternRule.setValue("max-age=15768000; includeSubDomains");
+                    headerPatternRule.setPattern("*");
+                    
+                    RewriteHandler rewrite = new RewriteHandler();
+                    rewrite.addRule(headerPatternRule);
+                    
+                    apiHandlers.addHandler(rewrite);
+                }
+                
             } else {
                 connector = new ServerConnector(apiServer);
             }
@@ -74,8 +133,6 @@ public final class API {
             connector.setIdleTimeout(Nxt.getIntProperty("nxt.apiServerIdleTimeout"));
             connector.setReuseAddress(true);
             apiServer.addConnector(connector);
-
-            HandlerList apiHandlers = new HandlerList();
 
             ServletContextHandler apiHandler = new ServletContextHandler();
             String apiResourceBase = Nxt.getStringProperty("nxt.apiResourceBase");
@@ -116,7 +173,13 @@ public final class API {
                 filterHolder.setAsyncSupported(true);
             }
 
-            apiHandlers.addHandler(apiHandler);
+            if(security != null) {
+                security.setHandler(apiHandler);
+                apiHandlers.addHandler(security);
+            }
+            else {
+                apiHandlers.addHandler(apiHandler);
+            }
             apiHandlers.addHandler(new DefaultHandler());
 
             apiServer.setHandler(apiHandlers);
