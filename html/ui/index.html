@@ -164,14 +164,83 @@
         </div>
 
         <header class="header">
-            <a href="#" class="logo" id="logo" data-page="dashboard">
-                <img src="img/nxt_logo_small.png" style="opacity:0.95" />
-            </a>
+            
             <nav class="navbar navbar-static-top" role="navigation">
+                <a href="#" class="logo" id="logo" data-page="dashboard">
+                    <img src="img/burst_logo.jpg" width="100%" height="100%" style="opacity:0.95" />
+                </a>
+
+                <div class="small-box" style="width:240px">
+                    <div class="inner">
+                        <span><a href="#" id="account_name" style="font-size:24px" data-toggle="modal" data-target="#account_info_modal" data-i18n="no_name_set">No Name Set</a></span>
+                        
+                        <div id="account_id_dropdown" class="dropdown">
+                        <div id="account_id" class="dropdown-toggle" data-toggle="dropdown" data-type="account_id"></div>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation" class="copy_link"><a role="menuitem" tabindex="-1" href="#" data-type="account_rs" data-i18n="copy_account_id">Copy Account ID</a></li>
+                                <li role="presentation" class="copy_link"><a role="menuitem" tabindex="-1" href="#" data-type="account_id">Copy Numeric Account ID</a></li>
+                                <li role="presentation" class="remote_only copy_link"><a role="menuitem" tabindex="-1" href="#" data-type="message_link" data-i18n="copy_send_message_link">Copy "Send Message" Link</a></li>
+                                <li role="presentation" class="remote_only copy_link"><a role="menuitem" tabindex="-1" href="#" data-type="send_link" data-i18n="copy_send_nxt_link">Copy "Send BURST" Link</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="small-box" style="width:100px">
+                    <div class="inner">
+                        <span id="nrs_version" class="loading_dots"><span>.</span><span>.</span><span>.</span></span>
+                        <p><span id="nrs_version_info" data-i18n="nrs_version">Version</span> <span class="label label-danger" id="nrs_update" style="display:none;"></span></p>
+                    </div>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#nrs_modal">
+                        <div class="icon"><i class="fa fa-code"></i></div>
+                    </a>
+                </div>
+
+                <div class="small-box" style="width:200px">
+                    <div class="inner">
+                        <span id="account_balance" class="loading_dots"><span>.</span><span>.</span><span>.</span></span>
+                        <p><span data-i18n="account_balance">Account Balance</span> <span class="label" id="account_leasing" style="display:none;background-color:#1990B1"></span></p>
+                    </div>
+                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#account_details_modal">
+                        <div class="icon"><i class="fa fa-briefcase"></i></div>
+                    </a>
+                </div>
+
+                <!--div class="small-box" style="width:180px">
+                    <div class="inner">
+                        <span id="account_forged_balance" class="loading_dots"><span>.</span><span>.</span><span>.</span></span>
+                        <p data-i18n="forged_balance">Mined Balance</p>
+                    </div>
+                    <a href="#" id="goto_forged_blocks" class="small-box-footer">
+                        <div class="icon"><i class="ion ion-hammer"></i></div>
+                    </a>
+                </div-->
+
+                <div class="small-box" style="width:120px">
+                    <div class="inner">
+                        <span id="account_nr_assets" class="loading_dots"><span>.</span><span>.</span><span>.</span></span>
+                        <p data-i18n="assets_owned">Assets Owned</p>
+                    </div>
+                    <a href="#" class="small-box-footer goto-page" data-page="my_assets">
+                        <div class="icon"><i class="ion ion-pie-graph"></i></div>
+                    </a>
+                </div>
+
                 <div class="navbar-right">
+                    <div class="small-box" style="width:300px">
+                    <form action="#" method="get" class="sidebar-form" id="id_search" autocomplete="off">
+                        <div class="input-group" style="margin-top:10px">
+                            <input type="text" name="q" class="form-control" placeholder="Search ID ..." data-i18n="[placeholder]search_by_id">
+                            <span class="input-group-btn">
+                                <button type="submit" name="seach" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </form> 
+                    </div> 
+
                     <ul class="nav navbar-nav">
-                    	<li class="dropdown"><a href="#" data-toggle="modal" data-target="#send_money_modal" data-i18n="send_nxt">Send BURST</a></li>
-                    	<li class="dropdown"><a href="#" data-toggle="modal" data-target="#send_message_modal" data-i18n="send_message">Send Message</a></li>
+                    	<li class="dropdown"></li>
+                    	<li class="dropdown"></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-cog"></i>
@@ -187,11 +256,11 @@
                                 <i class="fa fa-question-circle"></i>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                            	<li><a role="menuitem" tabindex="-1" href="http://nxt.org/" target="_blank">Nxt.org</a></li>
-								<li><a role="menuitem" tabindex="-1" href="https://nxtforum.org/" target="_blank" data-i18n="link.nxt_forum">Nxt Forum</a></li>
-								<li><a role="menuitem" tabindex="-1" href="https://wiki.nxtcrypto.org/" target="_blank" data-i18n="link.nxt_wiki">Nxt Wiki</a></li>
-								<li><a role="menuitem" tabindex="-1" href="https://wiki.nxtcrypto.org/wiki/Nxt_client_interface" target="_blank" data-i18n="link.interface_tutorial">Interface Tutorial</a></li>
-								<li><a role="menuitem" tabindex="-1" href="https://wiki.nxtcrypto.org/wiki/Asset_Exchange" target="_blank" data-i18n="link.asset_exchange_tutorial">Asset Exchange Tutorial</a></li>
+                            	<li><a role="menuitem" tabindex="-1" href="http://burstcoin.info/" target="_blank">burstcoin.info</a></li>
+								<li><a role="menuitem" tabindex="-1" href="https://burstforum.com/" target="_blank" data-i18n="link.nxt_forum">Burst Forum</a></li>
+								<li><a role="menuitem" tabindex="-1" href="https://wiki.burstcoin.info/" target="_blank" data-i18n="link.nxt_wiki">Burst Wiki</a></li>
+								<li><a role="menuitem" tabindex="-1" href="https://bitcointalk.org/index.php?topic=731923" target="_blank" data-i18n="link.interface_tutorial">Discussion Thread</a></li>
+								<li><a role="menuitem" tabindex="-1" href="http://explorer.burstcoin.io" target="_blank" data-i18n="link.asset_exchange_tutorial">Block Explorer</a></li>
 							</ul>
 						</li>
                         <li class="dropdown" id="logout_button_container">
@@ -200,7 +269,6 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
 								<li><a role="menuitem" tabindex="-1" href="#" onclick="NRS.logout()" data-i18n="logout">Log Out</a></li>
-								<li><a role="menuitem" tabindex="-1" href="#" onclick="NRS.logout(true)" data-i18n="logout_stop_forging">Log Out &amp; Stop Forging</a></li>
 							</ul>
 						</li>
                     </ul>
@@ -210,63 +278,46 @@
         <div id="page" class="wrapper row-offcanvas row-offcanvas-left">
             <aside class="left-side sidebar-offcanvas">
                 <section class="sidebar">
-                	<div class="user-panel">
-                        <div class="pull-left info">
-                        	<div class="pull-left info">
-                        		<div style="margin-bottom:5px;"><a href="#" id="account_name" data-toggle="modal" data-target="#account_info_modal" data-i18n="no_name_set">No Name Set</a></div>
-	                        	<div id="account_id_dropdown" class="dropdown" style="margin-bottom:10px">
-	                        		<span id="account_id" class="dropdown-toggle" data-toggle="dropdown" data-type="account_id" style="font-weight:bold"></span>
-									<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-										<li role="presentation" class="copy_link"><a role="menuitem" tabindex="-1" href="#" data-type="account_rs" data-i18n="copy_account_id">Copy Account ID</a></li>
-										<li role="presentation" class="copy_link"><a role="menuitem" tabindex="-1" href="#" data-type="account_id">Copy Numeric Account	ID</a></li>
-										<li role="presentation" class="remote_only copy_link"><a role="menuitem" tabindex="-1" href="#" data-type="message_link" data-i18n="copy_send_message_link">Copy "Send Message" Link</a></li>
-										<li role="presentation" class="remote_only copy_link"><a role="menuitem" tabindex="-1" href="#" data-type="send_link" data-i18n="copy_send_nxt_link">Copy "Send BURST" Link</a></li>
-									</ul>
-								</div>
-                        	</div>
-                        </div>
-                    </div>       
-                    <form action="#" method="get" class="sidebar-form" id="id_search" autocomplete="off">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search by ID..." data-i18n="[placeholder]search_by_id">
-                            <span class="input-group-btn">
-                                <button type="submit" name="seach" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-                            </span>
-                        </div>
-                    </form>             
+                	     
+                              
+
+
                     <ul class="sidebar-menu">
+                        <li><a href="#" data-toggle="modal" data-target="#send_money_modal" data-i18n="send_nxt">Send BURST</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#send_message_modal" data-i18n="send_message">Send Message</a></li>
+
                         <li class="active" id="dashboard_link"><a href="#" data-page="dashboard"><i class="fa fa-dashboard"></i> <span data-i18n="dashboard">Dashboard</span></a></li>
 						<li class="treeview" id="sidebar_transactions">
 							<a href="#" data-page="transactions"><i class="fa fa-briefcase"></i> <span data-i18n="transactions">Transactions</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
                             <ul class="treeview-menu" style="display: none;">
-								<li><a href="#" data-page="transactions"><i class="fa fa-angle-double-right"></i> <span data-i18n="transactions">Transactions</span></a></li>
-                                <li><a href="#" data-page="escrow"><i class="fa fa-angle-double-right"></i> <span data-i18n="escrow">Escrow</span></a></li>
-                            	<li><a href="#" data-page="subscriptions"><i class="fa fa-angle-double-right"></i> <span data-i18n="subscriptions">Subscriptions</span></a></li>
+								<li><a href="#" data-page="transactions"> <span data-i18n="transactions">Transactions</span></a></li>
+                                <li><a href="#" data-page="escrow"> <span data-i18n="escrow">Escrow</span></a></li>
+                            	<li><a href="#" data-page="subscriptions"> <span data-i18n="subscriptions">Subscriptions</span></a></li>
                         	</ul>
                         </li>
                         <li class="treeview" id="sidebar_asset_exchange">
                         	<a href="#" data-page="asset_exchange"><i class="fa fa-signal"></i><span data-i18n="asset_exchange">Asset Exchange</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
                             <ul class="treeview-menu" style="display: none;">
-                                 <li><a href="#" data-page="asset_exchange"><i class="fa fa-angle-double-right"></i> <span data-i18n="asset_exchange">Asset Exchange</span></a></li>
-                            	<li><a href="#" data-page="my_assets"><i class="fa fa-angle-double-right"></i> <span data-i18n="my_assets">My Assets</span></a></li>
-                                <li><a href="#" data-page="open_orders"><i class="fa fa-angle-double-right"></i> <span data-i18n="open_orders">Open Orders</span></a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#issue_asset_modal"><i class="fa fa-angle-double-right"></i> <span data-i18n="issue_asset">Issue Asset</span></a></li>
+                                 <li><a href="#" data-page="asset_exchange"> <span data-i18n="asset_exchange">Asset Exchange</span></a></li>
+                            	<li><a href="#" data-page="my_assets"> <span data-i18n="my_assets">My Assets</span></a></li>
+                                <li><a href="#" data-page="open_orders"> <span data-i18n="open_orders">Open Orders</span></a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#issue_asset_modal"> <span data-i18n="issue_asset">Issue Asset</span></a></li>
                         	</ul>
                         </li>
                         <li class="treeview" id="sidebar_dgs_buyer">
                         	<a href="#" data-page="dgs_search"><i class="fa fa-shopping-cart"></i><span data-i18n="marketplace">Marketplace</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
                             <ul class="treeview-menu" style="display: none;">
-                            	 <li><a href="#" data-page="dgs_search"><i class="fa fa-angle-double-right"></i> <span data-i18n="search_marketplace">Search Marketplace</span></a></li>
-                            	<li><a href="#" data-page="purchased_dgs"><i class="fa fa-angle-double-right"></i> <span data-i18n="purchased_products">Purchased Products</span></a></li>
+                            	 <li><a href="#" data-page="dgs_search"> <span data-i18n="search_marketplace">Search Marketplace</span></a></li>
+                            	<li><a href="#" data-page="purchased_dgs"> <span data-i18n="purchased_products">Purchased Products</span></a></li>
                         	</ul>
                         </li>
                         <li class="treeview" id="sidebar_dgs_seller">
                             <a href="#" data-page="my_dgs_listings"><i class="fa fa-shopping-cart"></i><span data-i18n="my_store">My Store</span><i class="fa pull-right fa-angle-right" style="padding-top:3px"></i></a>
                             <ul class="treeview-menu" style="display: none;">
-                                <li><a href="#" data-page="my_dgs_listings"><i class="fa fa-angle-double-right"></i> <span data-i18n="my_products_for_sale">My Products For Sale</span></a></li>
-                                <li><a href="#" data-page="pending_orders_dgs"><i class="fa fa-angle-double-right"></i> <span data-i18n="my_pending_orders">My Pending Orders</span></a></li>
-                                <li><a href="#" data-page="completed_orders_dgs"><i class="fa fa-angle-double-right"></i> <span data-i18n="my_completed_orders">My Completed Orders</span></a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#dgs_listing_modal"><i class="fa fa-angle-double-right"></i> <span data-i18n="list_product_for_sale">List Product For Sale</span></a></li>
+                                <li><a href="#" data-page="my_dgs_listings"> <span data-i18n="my_products_for_sale">My Products For Sale</span></a></li>
+                                <li><a href="#" data-page="pending_orders_dgs"> <span data-i18n="my_pending_orders">My Pending Orders</span></a></li>
+                                <li><a href="#" data-page="completed_orders_dgs"> <span data-i18n="my_completed_orders">My Completed Orders</span></a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#dgs_listing_modal"> <span data-i18n="list_product_for_sale">List Product For Sale</span></a></li>
                             </ul>
                         </li>
                         <li><a href="#" data-page="contacts"><i class="fa fa-user"></i> <span data-i18n="contacts">Contacts</span></a></li>
@@ -280,55 +331,12 @@
             </aside>
             <aside class="right-side">
            		<div id="dashboard_page" class="page" style="display:block">
-	                <section class="content-header"><h1 data-i18n="dashboard">Dashboard</h1></section>
-	                
 	                <section class="content">
 	                	<div class="alert-danger alert alert-no-icon" id="dashboard_message" style="display:none;padding:5px;padding-left:5px;margin-bottom:15px;"></div>
 	               
                         <div class="alert-danger alert alert-no-icon" id="secondary_dashboard_message" style="display:none;padding:5px;padding-left:5px;margin-bottom:15px;"></div>
 
-	                    <div class="row">
-	                        <div class="col-lg-3 col-xs-6">
-	                            <div class="small-box bg-aqua">
-	                                <div class="inner">
-	                                    <h3><span id="account_balance" class="loading_dots"><span>.</span><span>.</span><span>.</span></span></h3>
-	                                    <p><span data-i18n="account_balance">Account Balance</span> <span class="label" id="account_leasing" style="display:none;background-color:#1990B1"></span></p>
-	                                </div>
-	                                <div class="icon"><i class="fa fa-briefcase"></i></div>
-	                                <a href="#" class="small-box-footer" data-toggle="modal" data-target="#account_details_modal"><span data-i18n="more_info">More info</span> <i class="fa fa-arrow-circle-right"></i></a>
-	                            </div>
-	                        </div>
-	                        <div class="col-lg-3 col-xs-6">
-	                            <div class="small-box bg-green">
-	                                <div class="inner">
-	                                    <h3><span id="account_forged_balance" class="loading_dots"><span>.</span><span>.</span><span>.</span></span></h3>
-	                                    <p data-i18n="forged_balance">Mined Balance</p>
-	                                </div>
-	                                <div class="icon"><i class="ion ion-hammer"></i></div>
-	                                <a href="#" id="goto_forged_blocks" class="small-box-footer"><span data-i18n="more_info">More info</span> <i class="fa fa-arrow-circle-right"></i></a>
-	                            </div>
-	                        </div>
-	                        <div class="col-lg-3 col-xs-6">
-	                            <div class="small-box bg-yellow">
-	                                <div class="inner">
-	                                    <h3><span id="account_nr_assets" class="loading_dots"><span>.</span><span>.</span><span>.</span></span></h3>
-	                                    <p data-i18n="assets_owned">Assets Owned</p>
-	                                </div>
-	                                <div class="icon"><i class="ion ion-pie-graph"></i></div>
-	                                <a href="#" class="small-box-footer goto-page" data-page="my_assets"><span data-i18n="more_info">More info</span> <i class="fa fa-arrow-circle-right"></i></a>
-	                            </div>
-	                        </div>
-	                        <div class="col-lg-3 col-xs-6">
-	                            <div class="small-box bg-red">
-	                                <div class="inner">
-	                                    <h3><span id="nrs_version" class="loading_dots"><span>.</span><span>.</span><span>.</span></span></h3>
-	                                    <p><span id="nrs_version_info" data-i18n="nrs_version">NRS Version</span> <span class="label label-danger" id="nrs_update" style="display:none;"></span></p>
-	                                </div>
-	                                <div class="icon"><i class="fa fa-code"></i></div>
-	                                <a href="#" class="small-box-footer" data-toggle="modal" data-target="#nrs_modal"><span data-i18n="more_info">More info</span> <i class="fa fa-arrow-circle-right"></i></a>
-	                            </div>
-	                        </div>
-	                    </div>
+	                    
 						<div class="row">
 						    <div class="col-md-6">
 						        <div class="box box-primary">
