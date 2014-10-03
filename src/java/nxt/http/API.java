@@ -115,7 +115,7 @@ public final class API {
                 if(enableStrictTransportSecurity){
                     HeaderPatternRule headerPatternRule = new HeaderPatternRule();
                     headerPatternRule.setName("Strict-Transport-Security");
-                    headerPatternRule.setValue("max-age=15768000; includeSubDomains");
+                    headerPatternRule.setValue("max-age=15768000;");
                     headerPatternRule.setPattern("*");
                     
                     RewriteHandler rewrite = new RewriteHandler();
