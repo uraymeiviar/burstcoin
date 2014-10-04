@@ -189,43 +189,36 @@
                     </a>
                 </div>
 
-                <div class="small-box" style="width:140px">
-                    <div class="inner">
-                        <span id="nrs_version" class="loading_dots"><span>.</span><span>.</span><span>.</span></span>
-                        <p><span id="nrs_version_info" data-i18n="nrs_version">Version</span> <span class="label label-danger" id="nrs_update" style="display:none;"></span></p>
-                    </div>
-                    <a href="#" class="small-box-footer" data-toggle="modal" data-target="#nrs_modal">
-                        <div class="header-icon"><i class="fa fa-code"></i></div>
-                    </a>
-                </div>
 
                 <div class="small-box" style="width:230px">
                     <div class="inner">
                         <span id="account_balance" class="loading_dots"><span>.</span><span>.</span><span>.</span></span>
-                        <p><span data-i18n="account_balance">Account Balance</span> <span class="label" id="account_leasing" style="display:none;background-color:#1990B1"></span></p>
+                        <p><span data-i18n="account_balance">Account Balance</span> 
+                        <span class="label" id="account_leasing" style="display:none;background-color:rgba(255, 0, 0, 0.5);position:absolute;bottom:10px;"></span></p>
                     </div>
                     <a href="#" class="small-box-footer" data-toggle="modal" data-target="#account_details_modal">
                         <div class="header-icon"><i class="fa fa-briefcase"></i></div>
                     </a>
                 </div>
 
-                <!--div class="small-box" style="width:180px">
-                    <div class="inner">
-                        <span id="account_forged_balance" class="loading_dots"><span>.</span><span>.</span><span>.</span></span>
-                        <p data-i18n="forged_balance">Mined Balance</p>
-                    </div>
-                    <a href="#" id="goto_forged_blocks" class="small-box-footer">
-                        <div class="icon"><i class="ion ion-hammer"></i></div>
-                    </a>
-                </div-->
 
-                <div class="small-box" style="width:160px">
+                <div class="small-box" style="width:140px">
                     <div class="inner">
                         <span id="account_nr_assets" class="loading_dots"><span>.</span><span>.</span><span>.</span></span>
                         <p data-i18n="assets_owned">Assets Owned</p>
                     </div>
                     <a href="#" class="small-box-footer goto-page" data-page="my_assets">
                         <div class="header-icon"><i class="ion ion-pie-graph"></i></div>
+                    </a>
+                </div>
+
+                <div class="small-box" style="width:160px">
+                    <div class="inner">
+                        <span id="current_block_number" class="loading_dots"><span>.</span><span>.</span><span>.</span></span>
+                        <p data-i18n="current_block">Current Block</p>
+                    </div>
+                    <a href="#" class="small-box-footer goto-page" data-page="blocks">
+                        <div class="header-icon"><i class="fa fa-link"></i></div>
                     </a>
                 </div>
 
@@ -368,6 +361,41 @@
 	               
                         <div class="alert-danger alert alert-no-icon" id="secondary_dashboard_message" style="display:none;padding:5px;padding-left:5px;margin-bottom:15px;"></div>
 
+                        <div class="row">
+                        <div class="col-lg-3 col-xs-6">
+                            <div class="small-box">
+                                <div class="inner inner-smaller">
+                                    <h3><span id="nrs_version" class="loading_dots"><span>.</span><span>.</span><span>.</span></span></h3>
+                                    <p><span id="nrs_version_info" data-i18n="nrs_version">Version</span> <span class="label label-danger" id="nrs_update" style="display:none;"></span></p>
+                                </div>
+                                <a href="#" class="small-box-footer" data-toggle="modal" data-target="#nrs_modal">
+                                    <div class="icon-smaller" style="bottom:-14px"><i class="fa fa-code"></i></div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-xs-6">
+                            <div class="small-box">
+                                <div class="inner inner-smaller">
+                                    <h3><span id="account_forged_balance" class="loading_dots"><span>.</span><span>.</span><span>.</span></span></h3>
+                                    <p data-i18n="forged_balance">Mined Balance</p>
+                                </div>
+                                <a href="#" id="goto_forged_blocks" class="small-box-footer">
+                                    <div class="icon-smaller" style="bottom:-14px"><i class="ion ion-hammer"></i></div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-xs-6">
+                            <div class="small-box bg-yellow">
+                                <div class="inner inner-smaller">
+                                    <h3><span id="dash_peers_connected" class="loading_dots"><span>.</span><span>.</span><span>.</span></span></h3>
+                                    <p data-i18n="connected_peers">Connected Peers</p>
+                                </div>
+                                <a href="#" class="small-box-footer goto-page" data-page="peers">
+                                    <div class="icon-smaller" style="bottom:-14px"><i class="fa fa-cloud"></i></div>
+                                </a>
+                            </div>
+                        </div>
+                        </div>
 	                    
 						<div class="row">
 						    <div class="col-md-6">

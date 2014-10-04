@@ -59,6 +59,7 @@ var NRS = (function(NRS, $, undefined) {
 
 							$("#peers_uploaded_volume").html(NRS.formatVolume(uploaded)).removeClass("loading_dots");
 							$("#peers_downloaded_volume").html(NRS.formatVolume(downloaded)).removeClass("loading_dots");
+							$("#dash_peers_connected").html(connected).removeClass("loading_dots");
 							$("#peers_connected").html(connected).removeClass("loading_dots");
 							$("#peers_up_to_date").html(upToDate + '/' + activePeers).removeClass("loading_dots");
 
@@ -67,7 +68,7 @@ var NRS = (function(NRS, $, undefined) {
 					});
 				}
 			} else {
-				$("#peers_uploaded_volume, #peers_downloaded_volume, #peers_connected, #peers_up_to_date").html("0").removeClass("loading_dots");
+				$("#peers_uploaded_volume, #peers_downloaded_volume, #peers_connected, #dash_peers_connected, #peers_up_to_date").html("0").removeClass("loading_dots");
 				NRS.dataLoaded();
 			}
 		});

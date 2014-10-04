@@ -2185,7 +2185,6 @@ body > .header .logo .icon {
   color: #636567;
 }
 .navbar .navbar-right > .nav {
-  margin-right: 10px;
 }
 .navbar .sidebar-toggle .icon-bar {
   background: #acd0e5;
@@ -2267,7 +2266,6 @@ body > .header .logo .icon {
 }
  .sidebar-form {
   border: 1px solid transparent;
-  margin: 10px 10px;
 }
 .sidebar-form input[type="text"],
  .sidebar-form .btn {

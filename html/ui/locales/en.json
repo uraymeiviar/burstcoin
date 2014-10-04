@@ -903,5 +903,6 @@
     "error_send_message": "An unknown error occured! Message may or may not be sent.",
     "seller_account_id": "Seller's Account ID",
     "status_new_account_old": "Welcome to your new BURST account. Your account ID is <strong>__account_id__<\/strong>. You should fund it with some coins.",
-    "start_mining": "Start Mining"
+    "start_mining": "Start Mining",
+    "current_block" : "Current Block"
 }

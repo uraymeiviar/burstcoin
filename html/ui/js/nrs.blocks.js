@@ -33,6 +33,7 @@ var NRS = (function(NRS, $, undefined) {
 			NRS.getBlock(response.previousBlock, NRS.handleInitialBlocks);
 		} else {
 			NRS.checkBlockHeight(NRS.blocks[0].height);
+			$('#current_block_number').html(NRS.lastBlockHeight).removeClass("loading_dots");
 
 			if (NRS.state) {
 				//if no new blocks in 6 hours, show blockchain download progress..
@@ -108,7 +109,8 @@ var NRS = (function(NRS, $, undefined) {
 			}
 
 			NRS.checkBlockHeight(NRS.blocks[0].height);
-
+			NRS.lastBlockTimestamp = response.timestamp;
+			$('#current_block_number').html(NRS.lastBlockHeight).removeClass("loading_dots");
 			NRS.incoming.updateDashboardBlocks(newBlocks);
 		} else {
 			NRS.tempBlocks.push(response);

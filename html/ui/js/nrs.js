@@ -233,6 +233,7 @@ var NRS = (function(NRS, $, undefined) {
 				var previousLastBlock = (firstTime ? "0" : NRS.state.lastBlock);
 
 				NRS.state = response;
+				NRS.currentBlockTimestamp = response.time;
 
 				if (firstTime) {
 					$("#nrs_version").html(NRS.state.version).removeClass("loading_dots");
