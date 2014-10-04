@@ -2696,7 +2696,7 @@ a.list-group-item:hover {
 .content-splitter-right {
 	position: absolute;
 	top: 0;
-	left: 160px;
+	left: 128px;
 	bottom: 0;
 	right: 0;
 }
@@ -2720,7 +2720,8 @@ a.list-group-item:hover {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	padding:20px;
+	padding:16px;
+  padding-top:0;
 	overflow: auto;
 	overflow-x:hidden;
 	/*padding-bottom:120px;*/
