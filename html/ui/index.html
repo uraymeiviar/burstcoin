@@ -433,7 +433,8 @@
 								                <tr>
 								                    <th data-i18n="height" style="width: 30px">Height</th>
 								                    <th data-i18n="date">Date</th>
-								                    <th data-i18n="amount_plus_fee">Amount + Fee</th>
+								                    <th data-i18n="amount">Amount</th>
+                                                    <th data-i18n="fee">Fee</th>
 								                    <th data-i18n="nr_transactions_short"># TX</th>
 								                </tr>
 								                </thead>
@@ -873,26 +874,27 @@
 
                 <div id="asset_exchange_page" class="page">
 	                <section class="content content-stretch" style="position:fixed;margin-top:12px;padding:0; width:100%; height:100%; height: calc(100% - 101px);overflow:hidden;">
+                        <div style="margin-bottom:6px;">
+                            <button type="button" class="btn btn-sm btn-default" id="asset_exchange_add_asset_bookmark" data-toggle="modal" data-target="#add_asset_bookmark_modal" data-i18n="add_asset">Add Asset By ID</button>
+                            <button type="button" class="btn btn-sm btn-default" id="asset_exchange_bookmark_this_asset" style="display:none" data-i18n="bookmark_asset">Bookmark This Asset</button>
+                            <button type="button" class="btn btn-sm btn-default" id="asset_exchange_clear_search" style="display:none" data-i18n="clear_search_results">Clear Search Results</button>
+                        </div>
+                        <div id="asset_exchange_sidebar_search">
+                             <form action="#" method="get" class="sidebar-form" id="asset_exchange_search" autocomplete="off">
+                                <div class="input-group">
+                                    <input type="text" name="q" class="form-control" placeholder="Search Assets..." data-i18n="[placeholder]search_assets">
+                                    <span class="input-group-btn">
+                                    <button type="submit" name="seach" class="btn btn-flat" style="padding-left:3px"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </form>     
+                        </div>
 						<div class="content-spliter">
 			                <div class="content-splitter-inner">
 			                    <div class="content-splitter-sidebar" style="width:128px">
 			                        <div class="content-splitter-sidebar-inner">
 			                        	<div class="list-group unselectable sidebar_context" id="asset_exchange_sidebar">
-                                            <div style="margin-bottom:6px;">
-                                                <button type="button" class="btn btn-sm btn-default" id="asset_exchange_add_asset_bookmark" data-toggle="modal" data-target="#add_asset_bookmark_modal" data-i18n="add_asset">Add Asset By ID</button>
-                                                <button type="button" class="btn btn-sm btn-default" id="asset_exchange_bookmark_this_asset" style="display:none" data-i18n="bookmark_asset">Bookmark This Asset</button>
-                                                <button type="button" class="btn btn-sm btn-default" id="asset_exchange_clear_search" style="display:none" data-i18n="clear_search_results">Clear Search Results</button>
-                                            </div>
-											<div id="asset_exchange_sidebar_search">
-												 <form action="#" method="get" class="sidebar-form" id="asset_exchange_search" autocomplete="off">
-													<div class="input-group">
-														<input type="text" name="q" class="form-control" placeholder="Search Assets..." data-i18n="[placeholder]search_assets">
-														<span class="input-group-btn">
-														<button type="submit" name="seach" class="btn btn-flat" style="padding-left:3px"><i class="fa fa-search"></i></button>
-														</span>
-													</div>
-												</form>     
-											</div>
+                                            
 											<div id="asset_exchange_sidebar_content">
 				                        		<div style="text-align:center;padding-top:10px;"><span data-i18n="loading_please_wait">Loading, please wait</span><span class="loading_dots"><span>.</span><span>.</span><span>.</span></span></div>
 				                        	</div>

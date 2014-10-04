@@ -1,3 +1,12 @@
+
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/inconsolata.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12
 {
 	padding-left: 6px !important;
@@ -10,6 +19,9 @@
   margin-bottom:10px;
 }
 
+.fixedWidthFont {
+  font-family: 'Inconsolata';
+}
 /*! 
  *   AdminLTE v1.0
  *   Author: AlmsaeedStudio.com
@@ -1477,9 +1489,8 @@ body > .header .logo .icon {
   margin: -9px;
 }
 .box .box-footer {
-  border-top: 1px solid #f4f4f4;
+  border-top: 1px solid #94CEC7;
   padding: 10px;
-  background-color: #f4f4f4;
 }
 .box.box-solid {
   border-top: 0px;
@@ -2278,7 +2289,7 @@ body > .header .logo .icon {
 }
 .sidebar-form input[type="text"] {
   border:0;
-  background-color: rgba(40, 99, 92, 0.75);
+  background-color: rgba(187, 224, 220, 0.75);
 
 }
 .sidebar-form input[type="text"]:focus,
@@ -2621,7 +2632,6 @@ a.list-group-item:hover {
 
 
 .chat .to.tentative p {
-	font-style:italic !important;
 	background-color:#DAE3F2 !important;
 	color:#000 !important;
 }
@@ -2768,7 +2778,6 @@ tr.your-order td {
 }
 
 div.tentative {
-  font-style: italic !important;
   background-color: #c4e1ec !important;
   padding:5px;
 }
@@ -3113,8 +3122,8 @@ label .popover-content {
 	padding:3px 8px;
 }
 .dropdown-menu > li > a.zeroclipboard-is-hover {
-  background-color: #3c8dbc;
-  color: #f9f9f9;
+  background-color: rgba(74,155,139,0.8);
+  color: #D2FFF4;
 }
 #remember_password_container {
 	color:#555555;
