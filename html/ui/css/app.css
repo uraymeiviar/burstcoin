@@ -1,7 +1,7 @@
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12
 {
-	padding-left: 10px !important;
-	padding-right: 10px !important;
+	padding-left: 6px !important;
+	padding-right: 6px !important;
 }
 
 .row {
@@ -41,7 +41,7 @@ a:active,
 a:focus {
   outline: none;
   text-decoration: none;
-  color: #72afd2;
+  color:rgba(40, 99, 92, 0.75);
 }
 /* Layouts */
 .wrapper {
@@ -364,8 +364,8 @@ body > .header {
 body > .header .navbar {
   height: 60px;
   margin:0;
-  background-color: rgba(25,25,25,0.8);
-  color:#D9FF94;
+  background-color: rgba(74,155,139,0.8);
+  color:#D2FFF4;
 }
 body > .header .navbar .sidebar-toggle {
   float: left;
@@ -1240,7 +1240,7 @@ body > .header .logo .icon {
   left: 10px;
   z-index: 0;
   font-size: 32px;
-  color: rgba(190, 255, 95, 0.75);
+  color: rgba(40, 99, 92, 0.75);
 }
 .small-box .icon-smaller {
 	position: absolute;
@@ -1402,10 +1402,9 @@ body > .header .logo .icon {
 .box .box-header > .ion,
 .box .box-header .box-title {
   display: inline-block;
-  padding: 10px 0px 10px 10px;
+  padding: 8px;
   margin: 0;
-  font-size: 20px;
-  font-weight: 400;
+  font-size: 16px;
   float: left;
   cursor: default;
 }
@@ -1413,7 +1412,7 @@ body > .header .logo .icon {
   color: #444;
 }
 .box .box-header > .box-tools {
-  padding: 5px 10px 5px 5px;
+  
 }
 .box .box-body {
   padding: 10px;
@@ -1536,9 +1535,7 @@ body > .header .logo .icon {
   box-shadow: none;
 }
 .box.box-solid.collapsed-box .box-header {
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+
 }
 .box.box-solid[class*='bg'] > .box-header {
   color: #fff;
@@ -1723,7 +1720,7 @@ body > .header .logo .icon {
 .btn.btn-default {
 
 
-  color: #666;
+  color: inherit;
 }
 .btn.btn-default:hover,
 .btn.btn-default:active,
@@ -2177,7 +2174,7 @@ body > .header .logo .icon {
   background-color: #f2f4f7;
 }
 .navbar .nav a {
-  color: #636567;
+
 }
 .navbar .nav > li > a:hover,
 .navbar .nav > li > a:active,
@@ -2186,7 +2183,6 @@ body > .header .logo .icon {
 .navbar .nav .open > a:hover,
 .navbar .nav .open > a:focus {
   color: #636567;
-  border-bottom: 3px solid #636567;
 }
 .navbar .navbar-right > .nav {
   margin-right: 10px;
@@ -2283,9 +2279,8 @@ body > .header .logo .icon {
   height:34px;
 }
 .sidebar-form input[type="text"] {
-  color: #D9FF94;
   border:0;
-  background-color: #c0c0c0;
+  background-color: rgba(40, 99, 92, 0.75);
 
 }
 .sidebar-form input[type="text"]:focus,
@@ -2297,19 +2292,8 @@ body > .header .logo .icon {
   border-left-color: #575d63;
 }
 .sidebar-form .btn {
-  color: #999;
-  -webkit-border-top-left-radius: 0 !important;
-  -webkit-border-top-right-radius: 2px !important;
-  -webkit-border-bottom-right-radius: 2px !important;
-  -webkit-border-bottom-left-radius: 0 !important;
-  -moz-border-radius-topleft: 0 !important;
-  -moz-border-radius-topright: 2px !important;
-  -moz-border-radius-bottomright: 2px !important;
-  -moz-border-radius-bottomleft: 0 !important;
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 2px !important;
-  border-bottom-right-radius: 2px !important;
-  border-bottom-left-radius: 0 !important;
+  color: inherit;
+  background-color: inherit;
 }
 
 /*http://sugoi-admin.herokuapp.com/index.html
@@ -2532,7 +2516,7 @@ body {
 
 .list-group-item-heading {
 	font-weight: bold;
-	font-size: 14px;
+	font-size: 12px;
 }
 
 a.list-group-item:hover {
@@ -2695,7 +2679,7 @@ a.list-group-item:hover {
 	border-top: none !important;
 	border-left: none !important;
 	border-right: none !important;
-	border-bottom:1px solid #ddd !important;
+	border-bottom:1px solid #91C5BD; !important;
 	margin-bottom: 0 !important;
 }
 
@@ -2712,7 +2696,7 @@ a.list-group-item:hover {
 .content-splitter-right {
 	position: absolute;
 	top: 0;
-	left: 200px;
+	left: 160px;
 	bottom: 0;
 	right: 0;
 }
@@ -3296,7 +3280,7 @@ hr {
 }
 
 .owns_asset {
-  background-color:#FFFFD5;
+  background-color:#D6E9E3;
 }
 
 .asset_owner td {
