@@ -7,6 +7,47 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Orbitron-Medium'), local('Orbitron-Medium'), url('../fonts/orbitron-medium-webfont.woff') format('woff');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+.large-header {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  z-index: 20;
+}
+
+.burst {
+  position:absolute;
+  left:55%;
+  bottom:10%;
+  font-size:3em;
+  color:#91DDD3;
+  font-family: 'Orbitron', sans-serif;
+  line-height:0.65;
+  width:38%;
+}
+
+.regaccountLink {
+  font-size:16px;
+}
+
+.burstagline{
+  font-size:0.45em;
+  color:rgba(0,0,0,0.65);
+}
+
+.burstfeature{
+  font-size:0.35em;
+  color:rgba(0,0,0,0.5);
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12
 {
 	padding-left: 6px !important;
@@ -38,8 +79,8 @@ body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   -webkit-font-smoothing: antialiased;
   min-height: 100%;
-  background: #fff;
-  color: black !important;
+  background: #172222;
+  color: #78C3B1;
 }
 html.lockscreen, html.lockscreen body {
   height:100%;
@@ -139,7 +180,6 @@ body.fixed .wrapper {
 .content {
   padding: 20px; /*wesley*/
   font-size:12px;
-  /*background: #e5e6eb;*/
 }
 /* Utility */
 /* H1 - H6 font */
@@ -345,8 +385,7 @@ img {
   border-radius: 0 !important;
 }
 .table > tbody > tr >td {
-	background-color: #fff;
-  border:0;
+
 }
 /* Change the color of the striped tables */
 .table-striped > tbody > tr:nth-child(odd) > td,
@@ -1260,7 +1299,7 @@ body > .header .logo .icon {
 	right: 5px;
 	z-index: 0;
 	font-size: 75px;
-	color: rgba(0, 0, 0, 0.15);
+	color: rgba(59, 158, 150, 0.25);
 }
 
 .small-box > .inner-smaller {
@@ -1312,7 +1351,7 @@ body > .header .logo .icon {
     font-size: 32px;
   }
   to {
-    font-size: 40px;
+    font-size: 48px;
   }
 }
 @-webkit-keyframes tansformAnimation {
@@ -1383,23 +1422,6 @@ body > .header .logo .icon {
 }
 .box .box-header {
   position: relative;
-  /*
-  -webkit-border-top-left-radius: 3px;
-  -webkit-border-top-right-radius: 3px;
-  -webkit-border-bottom-right-radius: 0;
-  -webkit-border-bottom-left-radius: 0;
-  -moz-border-radius-topleft: 3px;
-  -moz-border-radius-topright: 3px;
-  -moz-border-radius-bottomright: 0;
-  -moz-border-radius-bottomleft: 0;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-bottom: 0px solid #f4f4f4;
-  */
-  color: #444;
-  /*padding-bottom: 10px;*/
 }
 .box .box-header:before,
 .box .box-header:after {
@@ -1736,21 +1758,19 @@ body > .header .logo .icon {
 .btn.btn-default:hover,
 .btn.btn-default:active,
 .btn.btn-default.hover {
- /* background-color: #AFAFAF!important; */
-    background-color: #f4f4f4!important;
+
 
 }
 .btn.btn-default.btn-flat {
   border-bottom-color: #d9dadc;
 }
 .btn.btn-primary {
-  background-color: rgba(215, 215, 215, 1);
-  border-color: rgba(215, 215, 215, 1);
+
 }
 .btn.btn-primary:hover,
 .btn.btn-primary:active,
 .btn.btn-primary.hover {
-  background-color: #b3b3b3;
+
 }
 .btn.btn-success {
   background-color: #00a65a;
@@ -2075,7 +2095,7 @@ body > .header .logo .icon {
 */
 /* ADD THIS CLASS TO THE <HTML> TAG */
 .lockscreen {
-  background-color: #8e8e8e; /*WESLEY */
+  background-color: #fff; /*WESLEY */
   
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -2114,13 +2134,7 @@ body > .header .logo .icon {
 /* Will contain the image and the sign in form */
 .lockscreen-item {
   padding: 0;
-  background: #3c4247;
   position: relative;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  margin: 10px auto;
-  width: 400px;
 }
 .lockscreen-item:before,
 .lockscreen-item:after {
@@ -2152,11 +2166,14 @@ body > .header .logo .icon {
 /* Contains the password input and the login button */
 
 .lockscreen-item > .lockscreen-credentials input {
-  border: 0 !important;
+  border: 1px solid #91DDD3;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:18px;
 }
 .lockscreen-item > .lockscreen-credentials .btn {
-  background-color: #3c4247;
-  border: 0;
+  background-color: #91DDD3;
+  color:#236462;
+  border: 1px solid #91DDD3;
 }
 /* Extra to give the user an option to navigate the website [optional]*/
 #registration_link {
@@ -2224,7 +2241,7 @@ body > .header .logo .icon {
 .left-side .sidebar > .sidebar-menu > li > a { 
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
-  color: #33AC8A;
+  color: #447E6D;
 }
 
 /* skin-blue sidebar */
@@ -2248,7 +2265,7 @@ body > .header .logo .icon {
 }
 .sidebar > .sidebar-menu > li > a:hover,
 .sidebar > .sidebar-menu > li.active > a {
-  color: #000;
+  color: #D2FFF4;
   border-left:8px solid #33AC8A;
 }
 .sidebar > .sidebar-menu > li > .treeview-menu {
@@ -2269,7 +2286,7 @@ body > .header .logo .icon {
   text-decoration: none;
 }
 .treeview-menu > li > a {
-  color: #777;
+  color: #09E998;
 }
 .treeview-menu > li.active > a,
 .treeview-menu > li > a:hover {
@@ -2508,11 +2525,6 @@ background:#33363f
 	-moz-box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
 	box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
 	
-}
-
-body {
-	
-	color: black !important;
 }
 
 .page {
@@ -3452,6 +3464,7 @@ input.masked {
 
 .modal-body {
   padding-bottom:8px;
+  color:#444;
 } 
 
 #dgs_view_delivery_output, #dgs_view_purchase_modal_note, #dgs_delivery_modal_note, #dgs_view_refund_output, #transaction_info_output_top, #transaction_info_output_bottom {
