@@ -171,6 +171,8 @@ var NRS = (function(NRS, $, undefined) {
 					return;
 				}
 
+				animateHeader = false;
+
 				NRS.sendRequest("getAccountPublicKey", {
 					"account": NRS.account
 				}, function(response) {
@@ -332,6 +334,7 @@ var NRS = (function(NRS, $, undefined) {
 			NRS.setPassword("");
 			window.location.reload();
 		}
+		animateHeader = true;
 	}
 
 	NRS.setPassword = function(password) {
