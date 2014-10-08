@@ -6,7 +6,7 @@ import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 import fr.cryptohash.Shabal256;
 import pocminer.ScoopReader.msgScoopChunk;
-import pocminer.util.MiningPlot;
+import nxt.util.MiningPlot;
 
 public class ScoopChecker extends UntypedActor {
 

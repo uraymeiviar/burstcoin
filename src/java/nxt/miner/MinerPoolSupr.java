@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.math.BigInteger;
 
 import scala.concurrent.duration.Duration;
 import nxt.crypto.Crypto;
@@ -28,7 +29,7 @@ public class MinerPoolSupr extends UntypedActor {
 	ActorRef poolCom = null;
 	ActorRef miner = null;
 	
-	public MinerSupr() {
+	public MinerPoolSupr() {
 		super();
 		this.state = null;
 		init();
@@ -46,15 +47,16 @@ public class MinerPoolSupr extends UntypedActor {
 		}
 		else if(message instanceof Miner.msgBestResult) {
 			System.out.print("New best: ");
-			System.out.print(Convert.toUnsignedLong(((Miner.msgBestResult)message).bestaddress));
+			System.out.print(Convert.toUnsignedLong(((MinerPool.msgBestResult)message).bestaddress));
 			System.out.print(":");
 			System.out.println(((Miner.msgBestResult)message).bestnonce);
 			
 			poolCom.tell(new msgSubmitResult(((Miner.msgBestResult)message).bestaddress,
+                                             ((Miner.msgBestResult)message).bestResult,
                                          ((Miner.msgBestResult)message).bestnonce), getSelf());
 		}
-		else if(message instanceof MinerSupr.msgAddResult) {
-			System.out.println("Found pool share: " + Convert.toUnsignedLong(((MinerSupr.msgAddResult)message).address) + ":" + Convert.toUnsignedLong(((MinerSupr.msgAddResult)message).nonce));
+		else if(message instanceof MinerPoolSupr.msgAddResult) {
+			System.out.println("Found pool share: " + Convert.toUnsignedLong(((MinerPoolSupr.msgAddResult)message).address) + ":" + Convert.toUnsignedLong(((MinerPoolSupr.msgAddResult)message).nonce));
 			poolCom.tell(message, getSelf());
 		}
 		else if(message instanceof msgFlush) {
@@ -84,10 +86,13 @@ public class MinerPoolSupr extends UntypedActor {
 	}
 	
 	public static class msgSubmitResult {
-		public String accountId;
+        public long accountId;
+        public BigInteger result;
 		public long nonce;
-		public msgSubmitResult(String accountId, long nonce) {
-			this.accountId = accountId;
+		public msgSubmitResult(long accountId, BigInteger result, long nonce)
+        {
+            this.accountId = accountId;
+            this.result = result;
 			this.nonce = nonce;
 		}
 	}
@@ -96,7 +101,7 @@ public class MinerPoolSupr extends UntypedActor {
 		public long address;
 		public long nonce;
 		public long height;
-        public BigInteger deadline
+        public BigInteger deadline;
 		public msgAddResult(long address, long nonce, long height, BigInteger deadline) {
 			this.address = address;
 			this.nonce = nonce;

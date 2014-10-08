@@ -8,7 +8,7 @@ import nxt.util.Convert;
 import akka.actor.*;
 import akka.routing.RoundRobinPool;
 import pocminer.PlotGenerator;
-import pocminer.util.MiningPlot;
+import nxt.util.MiningPlot;
 
 public class GenerateSupr extends UntypedActor {
 

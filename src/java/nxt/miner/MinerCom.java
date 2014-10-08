@@ -14,7 +14,7 @@ import akka.actor.Cancellable;
 import scala.concurrent.duration.Duration;
 import pocminer.MinerSupr;
 import nxt.util.Convert;
-import pocminer;
+import pocminer.POCMiner;
 
 public class MinerCom extends UntypedActor {
 	
@@ -65,8 +65,8 @@ public class MinerCom extends UntypedActor {
 			}*/
 		}
 		else if(message instanceof MinerSupr.msgSubmitResult) {
-            POCMiner.miningState.bestResultAccountId = Convert.toUnsignedLong(((MinerSupr.msgSubmitResult)message).accountId);
-            POCMiner.miningState.bestResultNonce = Convert.toUnsignedLong(((MinerSupr.msgSubmitResult)message).nonce);
+            POCMiner.miningState.bestResultAccountId = Long.toString(((MinerSupr.msgSubmitResult)message).accountId);
+            POCMiner.miningState.bestResultNonce = Long.toString(((MinerSupr.msgSubmitResult)message).nonce);
             POCMiner.miningState.bestResultDeadline = ((MinerSupr.msgSubmitResult)message).result.toString();
             
 			System.out.println("Submitting local share");

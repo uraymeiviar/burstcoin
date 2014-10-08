@@ -24,6 +24,7 @@ import pocminer.ScoopChecker.msgBestScoop;
 import pocminer.ScoopReader;
 import pocminer.ScoopChecker;
 import pocminer.PoolScoopChecker;
+import pocminer.Miner.PlotInfo;
 import nxt.util.MiningPlot;
 import nxt.Nxt;
 
@@ -42,7 +43,7 @@ public class MinerPool extends UntypedActor {
 	
 	Cancellable tick = null;
 	
-	public Miner(MinerPoolSupr.NetPoolState state) {
+	public MinerPool(MinerPoolSupr.NetPoolState state) {
 		super();
 		this.state = state;
 	}
@@ -61,7 +62,7 @@ public class MinerPool extends UntypedActor {
 				newbest = true;
 			}
 		}
-		else if(message instanceof MinerSupr.msgAddResult) {
+		else if(message instanceof MinerPoolSupr.msgAddResult) {
 			getContext().parent().tell(message, getSelf());
 		}
 		else if(message instanceof msgSendResults) {
@@ -74,7 +75,7 @@ public class MinerPool extends UntypedActor {
 			poolChecker.tell(new msgCheckFlush(), getSelf());
 		}
 		else if(message instanceof msgCheckFlush) {
-			getContext().parent().tell(new MinerSupr.msgFlush(), getSelf());
+			getContext().parent().tell(new MinerPoolSupr.msgFlush(), getSelf());
 		}
 		else {
 			unhandled(message);
@@ -129,22 +130,6 @@ public class MinerPool extends UntypedActor {
 				new msgSendResults(),
 				getContext().system().dispatcher(),
 				null);
-	}
-	
-	public static class PlotInfo {
-		public String filename;
-		public long address;
-		public long startnonce;
-		public long plots;
-		public long staggeramt;
-		public PlotInfo(String filename) {
-			this.filename = filename;
-			String[] parts = filename.split("_");
-			this.address = Convert.parseUnsignedLong(parts[0]);
-			this.startnonce = Long.valueOf(parts[1]);
-			this.plots = Long.valueOf(parts[2]);
-			this.staggeramt = Long.valueOf(parts[3]);
-		}
 	}
 	
 	public static class msgBestResult {

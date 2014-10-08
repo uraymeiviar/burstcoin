@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.math.BigInteger;
 
 import scala.concurrent.duration.Duration;
 import nxt.crypto.Crypto;
@@ -59,7 +60,7 @@ public class MinerSupr extends UntypedActor {
 			com.tell(new msgSubmitResult(passPhrase,
                                          ((Miner.msgBestResult)message).bestaddress,
                                          ((Miner.msgBestResult)message).bestResult,
-                                         ((Miner.msgBestResult)message).bestnonce, getSelf());
+                                         ((Miner.msgBestResult)message).bestnonce), getSelf());
 		}
 		else {
 			unhandled(message);
@@ -68,7 +69,7 @@ public class MinerSupr extends UntypedActor {
 	}
 	
 	private void init() {
-		try {
+
 			for(String ps : this.passphrases) {
 				if(!ps.isEmpty()) {
 					byte[] publicKey = Crypto.getPublicKey(ps);
@@ -78,10 +79,7 @@ public class MinerSupr extends UntypedActor {
 					System.out.println("Added key: " + ps + " -> " + Convert.toUnsignedLong(id));
 				}
 			}
-		} catch (IOException e) {
-			System.out.println("Mining without passphrases is currently not supported");
-			return;
-		}
+		
 		com = getContext().actorOf(Props.create(MinerCom.class));
 	}
 	
@@ -96,10 +94,10 @@ public class MinerSupr extends UntypedActor {
 	
 	public static class msgSubmitResult {
 		public String passPhrase;
-        public String accountId;
+        public long accountId;
         public BigInteger result;
 		public long nonce;
-		public msgSubmitResult(String passPhrase, String accountId, BigInteger result, long nonce) {
+		public msgSubmitResult(String passPhrase, long accountId, BigInteger result, long nonce) {
 			this.passPhrase = passPhrase;
             this.accountId = accountId;
             this.result = result;

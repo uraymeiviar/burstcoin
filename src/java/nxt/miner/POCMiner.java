@@ -4,12 +4,14 @@ import java.io.IOException;
 
 import nxt.crypto.Crypto;
 import nxt.util.Convert;
+import java.io.File;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import pocminer.GenerateSupr;
 import pocminer.MinerSupr;
 import pocminer.Miner;
+import java.util.*;
 import nxt.Nxt;
 
 public class POCMiner {
@@ -23,8 +25,9 @@ public class POCMiner {
 	}
 	
 	public static void startPoolMining(String addr, int port) {
-        if(this.miningState.running) {
+        if(POCMiner.miningState.running) {
             POCMiner.stopMining();
+            POCMiner.miningState.reset();
         }
         POCMiner.miningState.pooled = true;
         POCMiner.miningState.addr = addr;
@@ -37,10 +40,11 @@ public class POCMiner {
     public static void startSoloMining(List<String> passphrases) {
         if(POCMiner.miningState.running) {
             POCMiner.stopMining();
+            POCMiner.miningState.reset();
         }
         POCMiner.miningState.pooled = false;
         POCMiner.miningState.addr = "127.0.0.1";
-        POCMiner.miningState.port = Nxt.getIntegerProperty("nxt.apiServerPort");
+        POCMiner.miningState.port = Nxt.getIntProperty("nxt.apiServerPort");
         
         POCMiner.miningActors = ActorSystem.create();
 		ActorRef minesupr = POCMiner.miningActors.actorOf(Props.create(MinerSupr.class, passphrases));
@@ -79,12 +83,15 @@ public class POCMiner {
 		public MiningState() {
 			reset();
 		}
-        public reset() {
+        public void reset() {
             this.addr = "127.0.0.1";
-			this.port = Nxt.getIntegerProperty("nxt.apiServerPort");
+			this.port = Nxt.getIntProperty("nxt.apiServerPort");
             this.pooled = false;
             this.running = false;
             this.plotDirPath = Nxt.getStringProperty("nxt.miningPlotDir");
+            this.bestResultAccountId = "";
+            this.bestResultNonce = "";
+            this.bestResultDeadline = "";
             
             File[] files = new File(plotDirPath).listFiles();
             for(int i = 0; i < files.length; i++) {

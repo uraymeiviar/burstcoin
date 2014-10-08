@@ -12,7 +12,7 @@ import org.eclipse.jetty.client.util.StringContentProvider;
 
 import akka.actor.UntypedActor;
 import akka.actor.Cancellable;
-import scala.concurrent.duration.Duration;
+import scala.concurrent.duration.*;
 import pocminer.MinerSupr;
 import nxt.util.Convert;
 import nxt.Nxt;
@@ -33,8 +33,8 @@ public class MinerPoolCom extends UntypedActor {
 	public MinerPoolCom() {
 		super();
 		this.results = "";
-        this.miningInfoTimeout = Nxt.getIntegerProperty("nxt.miningAPITimeout");
-        this.String miningAPIPath = Nxt.getStringProperty("nxt.miningAPIPath");
+        this.miningInfoTimeout = Nxt.getIntProperty("nxt.miningAPITimeout");
+        this.miningAPIPath = Nxt.getStringProperty("nxt.miningAPIPath");
 	}
 	
 	@Override
@@ -64,7 +64,7 @@ public class MinerPoolCom extends UntypedActor {
 			String h = (String)netstatejson.get("height");
 			String bT = (String)netstatejson.get("baseTarget");
             
-            String tD = (String)Integer.MAX_VALUE;
+            String tD = Integer.toString(Integer.MAX_VALUE);
             if(netstatejson.containsKey("targetDeadline")) {
                 tD = (String)netstatejson.get("targetDeadline");
             }
@@ -73,32 +73,32 @@ public class MinerPoolCom extends UntypedActor {
 			long height = Convert.parseUnsignedLong(h);
 			long baseTarget = Long.valueOf(bT);
 			long targetDeadline = Long.valueOf(tD);
-			MinerPoolSupr.NetPoolState state = new MinerSupr.NetPoolState(height, b, baseTarget, targetDeadline);
+			MinerPoolSupr.NetPoolState state = new MinerPoolSupr.NetPoolState(height, b, baseTarget, targetDeadline);
 			if(laststate == null || state.height != laststate.height || !(Arrays.equals(state.gensig, laststate.gensig))) {
 				laststate = state;
 				getContext().parent().tell(state, getSelf());
 				System.out.println(netstatetext);
 			}
 		}
-		else if(message instanceof MinerSupr.msgAddResult) {
-			MinerSupr.msgAddResult newresult = (MinerSupr.msgAddResult)message;
-            POCMiner.miningState.bestResultAccountId = Convert.toUnsignedLong(newresult.address);
-            POCMiner.miningState.bestResultNonce = Convert.toUnsignedLong(newresult.nonce);
+		else if(message instanceof MinerPoolSupr.msgAddResult) {
+			MinerPoolSupr.msgAddResult newresult = (MinerPoolSupr.msgAddResult)message;
+            POCMiner.miningState.bestResultAccountId = Long.toString(newresult.address);
+            POCMiner.miningState.bestResultNonce = Long.toString(newresult.nonce);
             POCMiner.miningState.bestResultDeadline = newresult.deadline.toString();
 			results += Convert.toUnsignedLong(newresult.address) + ":" + Convert.toUnsignedLong(newresult.nonce) + ":" + newresult.height + "\n";
 		}
-        else if(message instanceof MinerSupr.msgSubmitResult) {
+        else if(message instanceof MinerPoolSupr.msgSubmitResult) {
 			try {
-                POCMiner.miningState.bestResultAccountId = Convert.toUnsignedLong(((MinerSupr.msgSubmitResult)message).accountId);
-                POCMiner.miningState.bestResultNonce = Convert.toUnsignedLong(((MinerSupr.msgSubmitResult)message).nonce);
+                POCMiner.miningState.bestResultAccountId = Long.toString(((MinerSupr.msgSubmitResult)message).accountId);
+                POCMiner.miningState.bestResultNonce = Long.toString(((MinerSupr.msgSubmitResult)message).nonce);
                 POCMiner.miningState.bestResultDeadline = ((MinerSupr.msgSubmitResult)message).result.toString();
 				ContentResponse response = null;
                 if(this.miningAPIPath.toLowerCase() != "pool") {
                     System.out.println("Submitting shares to pool");
                     
-                    response = client.POST(POCMiner + this.miningAPIPath)
+                    response = client.POST(POCMiner.getUrl() + this.miningAPIPath)
                     .param("requestType", "submitNonce")
-                    .param("accountId", ((MinerSupr.msgSubmitResult)message).accountId)
+                    .param("accountId", Long.toString(((MinerSupr.msgSubmitResult)message).accountId))
                     .param("nonce", Convert.toUnsignedLong(((MinerSupr.msgSubmitResult)message).nonce))
                     .timeout(this.miningInfoTimeout, TimeUnit.SECONDS)
                     .send();
@@ -113,7 +113,7 @@ public class MinerPoolCom extends UntypedActor {
 				System.out.println("Error: Failed to submit nonce");
 			}
 		}
-		else if(message instanceof MinerSupr.msgFlush) {
+		else if(message instanceof MinerPoolSupr.msgFlush) {
 			System.out.println("Submitting shares to pool (flush)");
 			try {
                 ContentResponse response = null;
@@ -122,13 +122,13 @@ public class MinerPoolCom extends UntypedActor {
                         System.out.println("No valid shares to submit to pool");
                         return;
                     }
-                    response = client.POST(POCMiner + this.miningAPIPath + "/submitWork")
+                    response = client.POST(POCMiner.getUrl() + this.miningAPIPath + "/submitWork")
                             .content(new StringContentProvider(results))
                             .timeout(this.miningInfoTimeout, TimeUnit.SECONDS)
                             .send();
                 }
                 else {
-                    response = client.POST(POCMiner + this.miningAPIPath)
+                    response = client.POST(POCMiner.getUrl() + this.miningAPIPath)
                         .param("requestType", "submitNonce")
                         .param("accountId", POCMiner.miningState.bestResultAccountId)
                         .param("nonce", POCMiner.miningState.bestResultNonce)

@@ -8,7 +8,7 @@ import fr.cryptohash.Shabal256;
 import pocminer.ScoopChecker.msgBestScoop;
 import pocminer.ScoopChecker.msgCheckScoops;
 import pocminer.ScoopReader.msgScoopChunk;
-import pocminer.util.MiningPlot;
+import nxt.util.MiningPlot;
 
 public class PoolScoopChecker extends UntypedActor {
 	@Override
@@ -16,7 +16,7 @@ public class PoolScoopChecker extends UntypedActor {
 		if(message instanceof msgCheckPoolScoops) {
 			checkScoops((msgCheckPoolScoops) message, getSender());
 		}
-		if(message instanceof Miner.msgCheckFlush) {
+		if(message instanceof MinerPool.msgCheckFlush) {
 			getSender().tell(message, getSelf());
 		}
 		else {
@@ -35,7 +35,7 @@ public class PoolScoopChecker extends UntypedActor {
 			//BigInteger num = new BigInteger(1, md.digest());
 			BigInteger deadline = num.divide(BigInteger.valueOf(cs.baseTarget));
 			if(deadline.compareTo(BigInteger.valueOf(cs.targetDeadline)) <= 0) {
-				sender.tell(new MinerSupr.msgAddResult(cs.address, cs.startnonce + i, cs.height, deadline), sender);
+				sender.tell(new MinerPoolSupr.msgAddResult(cs.address, cs.startnonce + i, cs.height, deadline), sender);
 			}
 		}
 	}

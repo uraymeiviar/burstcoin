@@ -8,6 +8,7 @@ import java.io.RandomAccessFile;
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 import pocminer.Miner;
+import pocminer.MinerPool;
 import nxt.util.MiningPlot;
 
 public class ScoopReader extends UntypedActor {
@@ -17,7 +18,7 @@ public class ScoopReader extends UntypedActor {
 		if(message instanceof msgReadScoops) {
 			readFile((msgReadScoops) message, getSender());
 		}
-		if(message instanceof Miner.msgReadFlush) {
+		if(message instanceof MinerPool.msgReadFlush) {
 			getContext().parent().tell(message, getSelf());
 		}
 		else {
