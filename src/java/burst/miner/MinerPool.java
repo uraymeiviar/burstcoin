@@ -116,7 +116,7 @@ public class MinerPool extends UntypedActor {
 		
 		File[] files = new File(plotDir).listFiles();
 		for(int i = 0; i < files.length; i++) {
-			PlotInfo pi = new PlotInfo(files[i].getName());
+			PlotInfo pi = new PlotInfo(files[i]);
             reader.tell(new ScoopReader.msgReadScoops(pi, scoopnum), getSelf());
 		}
 		reader.tell(new msgReadFlush(), getSelf());

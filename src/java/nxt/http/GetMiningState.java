@@ -34,10 +34,11 @@ public final class GetMiningState extends APIServlet.APIRequestHandler {
 	            JSONObject plot = new JSONObject();
 	            
 	            plot.put("filename",plotInfo.filename);
-	            plot.put("accountId",plotInfo.address);
+	            plot.put("accountId",Long.toString(plotInfo.address));
 	            plot.put("startNonce",plotInfo.startnonce);
 	            plot.put("nonceCount",plotInfo.plots);
 	            plot.put("stagger",plotInfo.staggeramt);
+	            plot.put("sizeMB",plotInfo.sizeMB);
 	            
 	            plotInfoList.add(plot);
 	        }

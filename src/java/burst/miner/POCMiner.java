@@ -78,7 +78,6 @@ public class POCMiner {
         public String bestResultNonce;
         public String bestResultDeadline;
 		public MiningState() {
-            Logger.logMessage("MiningState constructor");
 			reset();
 		}
         public void reset() {
@@ -90,17 +89,19 @@ public class POCMiner {
             this.bestResultAccountId = "";
             this.bestResultNonce = "";
             this.bestResultDeadline = "";
-            this.plots = new ArrayList<Miner.PlotInfo>();
 
-            File plotDir = new File(plotDirPath);
+            refreshPlotList();
+        }
+        
+        public void refreshPlotList() {
+        	this.plots = new ArrayList<Miner.PlotInfo>();
+        	File plotDir = new File(this.plotDirPath);
             if(plotDir.exists() && plotDir.isDirectory()){
                 File[] files = plotDir.listFiles();
                 
-                Logger.logMessage("Plot Files = "+files.length);
-                
                 for(int i = 0; i < files.length; i++) {
                     Logger.logMessage("plot file "+files[i].getName());
-                    Miner.PlotInfo pi = new Miner.PlotInfo(files[i].getName());
+                    Miner.PlotInfo pi = new Miner.PlotInfo(files[i]);
                     this.plots.add(pi);
                 }
             }

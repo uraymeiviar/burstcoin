@@ -107,7 +107,7 @@ public class Miner extends UntypedActor {
 		
 		File[] files = new File("plots").listFiles();
 		for(int i = 0; i < files.length; i++) {
-			PlotInfo pi = new PlotInfo(files[i].getName());
+			PlotInfo pi = new PlotInfo(files[i]);
 			if(passPhrases.containsKey(pi.address)) {
 				reader.tell(new ScoopReader.msgReadScoops(pi, scoopnum), getSelf());
 			}
@@ -130,13 +130,15 @@ public class Miner extends UntypedActor {
 		public long startnonce;
 		public long plots;
 		public long staggeramt;
-		public PlotInfo(String filename) {
-			this.filename = filename;
-			String[] parts = filename.split("_");
+		public long sizeMB;
+		public PlotInfo(File file) {
+			this.filename = file.getName();
+			String[] parts = this.filename.split("_");
 			this.address = Convert.parseUnsignedLong(parts[0]);
 			this.startnonce = Long.valueOf(parts[1]);
 			this.plots = Long.valueOf(parts[2]);
 			this.staggeramt = Long.valueOf(parts[3]);
+			this.sizeMB = file.length()/(1024*1024);
 		}
 	}
 	

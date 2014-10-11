@@ -904,7 +904,14 @@
     "seller_account_id": "Seller's Account ID",
     "status_new_account_old": "Welcome to your new BURST account. Your account ID is <strong>__account_id__<\/strong>. You should fund it with some coins.",
     "start_mining": "Start Mining",
+    "stop_mining" : "Stop Mining",
     "current_block" : "Current Block",
     "ok" : "ok",
-    "how_to_get_account" : "How to get an Account"
+    "how_to_get_account" : "How to get an Account",
+    "startnonce" : "Start Nonce",
+    "noncecount" : "Nonce Count",
+    "stagger" : "Stagger",
+    "no_plot_found" : "No plots found",
+    "generate_plot" : "Generate Plot",
+    "sizeMB" : "Size (MB)"
 }
