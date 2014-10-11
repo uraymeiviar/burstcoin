@@ -1,14 +1,12 @@
-package pocminer;
+package burst.miner;
 
 import static akka.actor.SupervisorStrategy.resume;
 
 import java.io.File;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import nxt.util.Convert;
 import fr.cryptohash.Shabal256;
 import akka.actor.ActorRef;
 import akka.actor.OneForOneStrategy;
@@ -19,12 +17,11 @@ import akka.actor.Cancellable;
 import akka.actor.SupervisorStrategy.Directive;
 import akka.japi.Function;
 import scala.concurrent.duration.Duration;
-import pocminer.MinerSupr;
-import pocminer.ScoopChecker.msgBestScoop;
-import pocminer.ScoopReader;
-import pocminer.ScoopChecker;
-import pocminer.PoolScoopChecker;
-import pocminer.Miner.PlotInfo;
+import burst.miner.ScoopChecker.msgBestScoop;
+import burst.miner.ScoopReader;
+import burst.miner.ScoopChecker;
+import burst.miner.PoolScoopChecker;
+import burst.miner.Miner.PlotInfo;
 import nxt.util.MiningPlot;
 import nxt.Nxt;
 

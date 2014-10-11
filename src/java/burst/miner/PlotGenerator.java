@@ -1,4 +1,4 @@
-package pocminer;
+package burst.miner;
 
 import akka.actor.UntypedActor;
 

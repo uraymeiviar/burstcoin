@@ -1,11 +1,11 @@
-package pocminer;
+package burst.miner;
 
 import java.math.BigInteger;
 
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 import fr.cryptohash.Shabal256;
-import pocminer.ScoopReader.msgScoopChunk;
+import burst.miner.ScoopReader.msgScoopChunk;
 import nxt.util.MiningPlot;
 
 public class ScoopChecker extends UntypedActor {

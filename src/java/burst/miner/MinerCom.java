@@ -1,6 +1,5 @@
-package pocminer;
+package burst.miner;
 
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import org.json.simple.JSONObject;
@@ -11,8 +10,7 @@ import org.eclipse.jetty.util.ssl.SslContextFactory;
 
 import akka.actor.UntypedActor;
 import akka.actor.Cancellable;
-import scala.concurrent.duration.Duration;
-import pocminer.MinerSupr;
+import burst.miner.MinerSupr;
 import nxt.util.Convert;
 import pocminer.POCMiner;
 
@@ -51,13 +49,14 @@ public class MinerCom extends UntypedActor {
 				System.out.println("Invalid gensig received");
 				return;
 			}
+			/*
 			String h = (String)netstatejson.get("height");
 			String bT = (String)netstatejson.get("baseTarget");
 			
 			byte[] b = Convert.parseHexString(gsig);
 			long height = Convert.parseUnsignedLong(h);
 			long baseTarget = Long.valueOf(bT);
-			/*MinerSupr.NetState state = new MinerSupr.NetState(height, b, baseTarget, targetDeadline);
+			MinerSupr.NetState state = new MinerSupr.NetState(height, b, baseTarget, targetDeadline);
 			if(laststate == null || state.height != laststate.height || !(Arrays.equals(state.gensig, laststate.gensig))) {
 				laststate = state;
 				getContext().parent().tell(state, getSelf());

@@ -1,4 +1,4 @@
-package pocminer;
+package burst.miner;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -13,7 +13,7 @@ import org.eclipse.jetty.client.util.StringContentProvider;
 import akka.actor.UntypedActor;
 import akka.actor.Cancellable;
 import scala.concurrent.duration.*;
-import pocminer.MinerSupr;
+import burst.miner.MinerSupr;
 import nxt.util.Convert;
 import nxt.Nxt;
 import pocminer.POCMiner;

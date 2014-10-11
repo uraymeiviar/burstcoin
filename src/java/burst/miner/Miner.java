@@ -1,4 +1,4 @@
-package pocminer;
+package burst.miner;
 
 import static akka.actor.SupervisorStrategy.resume;
 
@@ -19,10 +19,10 @@ import akka.actor.Cancellable;
 import akka.actor.SupervisorStrategy.Directive;
 import akka.japi.Function;
 import scala.concurrent.duration.Duration;
-import pocminer.MinerSupr;
-import pocminer.ScoopChecker.msgBestScoop;
-import pocminer.ScoopReader;
-import pocminer.ScoopChecker;
+import burst.miner.MinerSupr;
+import burst.miner.ScoopChecker.msgBestScoop;
+import burst.miner.ScoopReader;
+import burst.miner.ScoopChecker;
 import nxt.util.MiningPlot;
 
 public class Miner extends UntypedActor {

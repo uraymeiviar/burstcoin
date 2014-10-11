@@ -1,17 +1,8 @@
-package pocminer;
+package burst.miner;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.math.BigInteger;
 
 import scala.concurrent.duration.Duration;
-import nxt.crypto.Crypto;
 import nxt.util.Convert;
 import akka.actor.ActorRef;
 import akka.actor.OneForOneStrategy;

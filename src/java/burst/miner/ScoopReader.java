@@ -1,4 +1,4 @@
-package pocminer;
+package burst.miner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,8 +7,8 @@ import java.io.RandomAccessFile;
 
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
-import pocminer.Miner;
-import pocminer.MinerPool;
+import burst.miner.Miner;
+import burst.miner.MinerPool;
 import nxt.util.MiningPlot;
 
 public class ScoopReader extends UntypedActor {

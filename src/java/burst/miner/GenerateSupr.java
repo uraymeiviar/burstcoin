@@ -1,4 +1,4 @@
-package pocminer;
+package burst.miner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import nxt.util.Convert;
 import akka.actor.*;
 import akka.routing.RoundRobinPool;
-import pocminer.PlotGenerator;
+import burst.miner.PlotGenerator;
 import nxt.util.MiningPlot;
 
 public class GenerateSupr extends UntypedActor {

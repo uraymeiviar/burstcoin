@@ -1,17 +1,10 @@
 package nxt.http;
 
-import java.nio.ByteBuffer;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
-
-import nxt.Block;
-import nxt.Nxt;
-import nxt.util.Convert;
-import fr.cryptohash.Shabal256;
-
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
-import pocminer.*;
+import burst.miner.*;
 
 public final class GetMiningState extends APIServlet.APIRequestHandler {
 	static final GetMiningState instance = new GetMiningState();
@@ -22,8 +15,9 @@ public final class GetMiningState extends APIServlet.APIRequestHandler {
 	
 	@Override
 	JSONStreamAware processRequest(HttpServletRequest req) {
-		JSONObject response = new JSONObject();
+        
         POCMiner.MiningState miningState = POCMiner.getMiningState();
+		JSONObject response = new JSONObject();
 		
 		response.put("address", miningState.addr);
         response.put("port", miningState.port);
@@ -34,20 +28,22 @@ public final class GetMiningState extends APIServlet.APIRequestHandler {
         response.put("bestResultNonce", miningState.bestResultNonce);
         response.put("bestResultDeadline", miningState.bestResultDeadline);
         
-        List<JSONObject> plotInfoList = new ArrayList<JSONObject>();
-        for(Miner.PlotInfo plotInfo : miningState.plots) {
-            JSONObject plot = new JSONObject();
-            
-            plot.put("filename",plotInfo.filename);
-            plot.put("accountId",plotInfo.address);
-            plot.put("startNonce",plotInfo.startnonce);
-            plot.put("nonceCount",plotInfo.plots);
-            plot.put("stagger",plotInfo.staggeramt);
-            
-            plotInfoList.add(plot);
+        if(miningState.plots != null) {
+        	List<JSONObject> plotInfoList = new ArrayList<JSONObject>();
+	        for(Miner.PlotInfo plotInfo : miningState.plots) {
+	            JSONObject plot = new JSONObject();
+	            
+	            plot.put("filename",plotInfo.filename);
+	            plot.put("accountId",plotInfo.address);
+	            plot.put("startNonce",plotInfo.startnonce);
+	            plot.put("nonceCount",plotInfo.plots);
+	            plot.put("stagger",plotInfo.staggeramt);
+	            
+	            plotInfoList.add(plot);
+	        }
+	        
+	        response.put("plots", plotInfoList);
         }
-        
-        response.put("plots", plotInfoList);
 		
 		return response;
 	}

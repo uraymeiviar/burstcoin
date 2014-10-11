@@ -1,18 +1,12 @@
-package pocminer;
+package burst.miner;
 
-import java.io.IOException;
-
-import nxt.crypto.Crypto;
-import nxt.util.Convert;
 import java.io.File;
-import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import pocminer.GenerateSupr;
-import pocminer.MinerSupr;
-import pocminer.Miner;
+import burst.miner.*;
 import java.util.*;
 import nxt.Nxt;
+import nxt.util.Logger;
 
 public class POCMiner {
     public static MiningState miningState = new MiningState();
@@ -21,7 +15,7 @@ public class POCMiner {
     
 	public static void startGenerate(long addr, long startnonce, long plots, long staggeramt, int threads) {
 		POCMiner.generateActors = ActorSystem.create();
-		ActorRef gensupr = POCMiner.generateActors.actorOf(Props.create(GenerateSupr.class, new GenerateSupr.GenParams(addr, startnonce, plots, staggeramt, threads)));
+		POCMiner.generateActors.actorOf(Props.create(GenerateSupr.class, new GenerateSupr.GenParams(addr, startnonce, plots, staggeramt, threads)));
 	}
 	
 	public static void startPoolMining(String addr, int port) {
@@ -34,7 +28,7 @@ public class POCMiner {
         POCMiner.miningState.port = port;
         
 		POCMiner.miningActors = ActorSystem.create();
-		ActorRef minesupr = POCMiner.miningActors.actorOf(Props.create(MinerPoolSupr.class, addr));
+		POCMiner.miningActors.actorOf(Props.create(MinerPoolSupr.class, addr));
 	}
     
     public static void startSoloMining(List<String> passphrases) {
@@ -47,7 +41,7 @@ public class POCMiner {
         POCMiner.miningState.port = Nxt.getIntProperty("nxt.apiServerPort");
         
         POCMiner.miningActors = ActorSystem.create();
-		ActorRef minesupr = POCMiner.miningActors.actorOf(Props.create(MinerSupr.class, passphrases));
+		POCMiner.miningActors.actorOf(Props.create(MinerSupr.class, passphrases));
     }
     
     public static String getUrl() {
@@ -67,6 +61,9 @@ public class POCMiner {
     }
     
     public static MiningState getMiningState() {
+        if(POCMiner.miningState == null) {
+        	POCMiner.miningState = new MiningState();
+        }
         return POCMiner.miningState;
     }
     
@@ -81,6 +78,7 @@ public class POCMiner {
         public String bestResultNonce;
         public String bestResultDeadline;
 		public MiningState() {
+            Logger.logMessage("MiningState constructor");
 			reset();
 		}
         public void reset() {
@@ -92,11 +90,22 @@ public class POCMiner {
             this.bestResultAccountId = "";
             this.bestResultNonce = "";
             this.bestResultDeadline = "";
-            
-            File[] files = new File(plotDirPath).listFiles();
-            for(int i = 0; i < files.length; i++) {
-                Miner.PlotInfo pi = new Miner.PlotInfo(files[i].getName());
-                this.plots.add(pi);
+            this.plots = new ArrayList<Miner.PlotInfo>();
+
+            File plotDir = new File(plotDirPath);
+            if(plotDir.exists() && plotDir.isDirectory()){
+                File[] files = plotDir.listFiles();
+                
+                Logger.logMessage("Plot Files = "+files.length);
+                
+                for(int i = 0; i < files.length; i++) {
+                    Logger.logMessage("plot file "+files[i].getName());
+                    Miner.PlotInfo pi = new Miner.PlotInfo(files[i].getName());
+                    this.plots.add(pi);
+                }
+            }
+            else {
+                Logger.logMessage("Plot Dir path = "+plotDirPath+" not exist");
             }
         }
 	}
