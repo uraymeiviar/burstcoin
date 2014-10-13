@@ -45,6 +45,23 @@ var NRS = (function(NRS, $, undefined) {
 
 	$('#stop_mining_button').hide();
 
+	$('#stop_mining_button').click( function(e) {
+		e.preventDefault();
+		NRS.sendRequest("stopMining", {
+				}, function(response) {
+					var result = false;
+					if(response.hasOwnProperty('result')) {
+						result = response.result;
+					}
+					if(result === true){
+						$('#stop_mining_button').hide();
+						$('#start_mining_button').show();	
+					}
+					$('#start_mining_button').removeAttr('disabled');
+				}
+			);	
+	});
+
 	$('#start_mining_button').click( function(e) {
 		e.preventDefault();
 		if(NRS.miningType == "pool_mining") {
@@ -69,7 +86,7 @@ var NRS = (function(NRS, $, undefined) {
 			);	
 		}
 		else {
-			
+			//TODO show dialog asking for passphrase for each plot account
 		}
 	});
 
