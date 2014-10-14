@@ -158,6 +158,11 @@ public final class APIServlet extends HttpServlet {
         map.put("getEscrowTransaction", GetEscrowTransaction.instance);
         map.put("getAccountEscrowTransactions", GetAccountEscrowTransactions.instance);
         map.put("getMiningState", GetMiningState.instance);
+        map.put("startMining", StartMining.instance);
+        map.put("stopMining", StopMining.instance);
+        map.put("startGenerate", StartGenerate.instance);
+        map.put("stopGenerate", StopGenerate.instance);
+        map.put("getGenerateState", GetGenerateState.instance);
 
         apiRequestHandlers = Collections.unmodifiableMap(map);
     }

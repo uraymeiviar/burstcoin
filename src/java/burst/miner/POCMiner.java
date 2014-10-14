@@ -4,21 +4,48 @@ import java.io.File;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import burst.miner.*;
+import java.util.Date;
 import java.util.*;
 import nxt.Nxt;
 import nxt.util.Logger;
 
 public class POCMiner {
     public static MiningState miningState = new MiningState();
+    public static GenerateState generateState = new GenerateState();
     public static ActorSystem miningActors = null;
     public static ActorSystem generateActors = null;
+    private static Date lastGetstateTimestamp = new Date();
     
-	public static void startGenerate(long addr, long startnonce, long plots, long staggeramt, int threads) {
-		POCMiner.generateActors = ActorSystem.create();
-		POCMiner.generateActors.actorOf(Props.create(GenerateSupr.class, new GenerateSupr.GenParams(addr, startnonce, plots, staggeramt, threads)));
+	public static boolean startGenerate(long addr, long startnonce, long plots, long staggeramt, int threads) {
+		if(staggeramt > 8191) {
+			staggeramt = 8192;
+		}
+		if(staggeramt < 256) {
+			staggeramt = 256;
+		}
+		if(POCMiner.generateState.running) {
+			if( POCMiner.generateState.account == addr && 
+				POCMiner.generateState.startNonce == startnonce && 
+				POCMiner.generateState.nonceCount == plots &&
+				POCMiner.generateState.staggerSize == staggeramt ) {
+				return true;
+			}
+            POCMiner.stopGenerate();
+            POCMiner.generateState.reset();
+        }
+		try {
+			POCMiner.generateActors = ActorSystem.create();
+			POCMiner.generateActors.actorOf(Props.create(GenerateSupr.class, new GenerateSupr.GenParams(addr, startnonce, plots, staggeramt, threads)));
+			POCMiner.generateState.running = true;
+		}
+        catch(Exception e){
+        	POCMiner.generateState.running = false;
+        }
+        
+        return POCMiner.generateState.running;
 	}
 	
-	public static void startPoolMining(String addr, int port) {
+	public static boolean startPoolMining(String addr, int port) {
         if(POCMiner.miningState.running) {
             POCMiner.stopMining();
             POCMiner.miningState.reset();
@@ -27,11 +54,19 @@ public class POCMiner {
         POCMiner.miningState.addr = addr;
         POCMiner.miningState.port = port;
         
-		POCMiner.miningActors = ActorSystem.create();
-		POCMiner.miningActors.actorOf(Props.create(MinerPoolSupr.class, addr));
+        try {
+        	POCMiner.miningActors = ActorSystem.create();
+    		POCMiner.miningActors.actorOf(Props.create(MinerPoolSupr.class, addr));
+    		POCMiner.miningState.running = true;
+        }
+        catch(Exception e){
+        	POCMiner.miningState.running = false;
+        }
+        
+        return POCMiner.miningState.running;
 	}
     
-    public static void startSoloMining(List<String> passphrases) {
+    public static boolean startSoloMining(List<String> passphrases) {
         if(POCMiner.miningState.running) {
             POCMiner.stopMining();
             POCMiner.miningState.reset();
@@ -40,31 +75,57 @@ public class POCMiner {
         POCMiner.miningState.addr = "127.0.0.1";
         POCMiner.miningState.port = Nxt.getIntProperty("nxt.apiServerPort");
         
-        POCMiner.miningActors = ActorSystem.create();
-		POCMiner.miningActors.actorOf(Props.create(MinerSupr.class, passphrases));
+        try {
+        	POCMiner.miningActors = ActorSystem.create();
+    		POCMiner.miningActors.actorOf(Props.create(MinerSupr.class, passphrases));
+    		POCMiner.miningState.running = true;
+        }
+        catch(Exception e) {
+        	POCMiner.miningState.running = false;
+        }
+        
+        return POCMiner.miningState.running;
     }
     
     public static String getUrl() {
         return POCMiner.miningState.addr+":"+POCMiner.miningState.port;
     }
     
-    public static void stopMining() {
+    public static boolean stopMining() {
         if(POCMiner.miningActors != null) {
             POCMiner.miningActors.shutdown();
         }
+        POCMiner.miningState.running = false;
+        return true;
     }
     
-    public static void stopGenerate() {
+    public static boolean stopGenerate() {
         if(POCMiner.generateActors != null) {
             POCMiner.generateActors.shutdown();
         }
+        POCMiner.generateState.running = false;
+        return true;
     }
     
     public static MiningState getMiningState() {
         if(POCMiner.miningState == null) {
         	POCMiner.miningState = new MiningState();
         }
+        Date newTimestamp = new Date();
+        long delta = newTimestamp.getTime() - POCMiner.lastGetstateTimestamp.getTime();
+        if(delta > 5000) {
+        	POCMiner.miningState.refreshPlotList();
+        	POCMiner.lastGetstateTimestamp = newTimestamp;
+        }
         return POCMiner.miningState;
+    }
+    
+    public static GenerateState getGeneratingState() {
+        if(POCMiner.generateState == null) {
+        	POCMiner.generateState = new GenerateState();
+        }
+
+        return POCMiner.generateState;
     }
     
     public static class MiningState {
@@ -119,5 +180,18 @@ public class POCMiner {
         public int threadCount;
         public long account;
         public boolean running;
+        public GenerateState() {
+			reset();
+		}
+        
+        public void reset() {
+            this.startNonce = 0;
+			this.nonceCount = 0;
+            this.currentNonce = 0;
+            this.staggerSize = 0;
+            this.threadCount = 1;
+            this.account = 0;
+            this.running = false;
+        }
     }
 }
