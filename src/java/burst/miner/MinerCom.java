@@ -12,7 +12,7 @@ import akka.actor.UntypedActor;
 import akka.actor.Cancellable;
 import burst.miner.MinerSupr;
 import nxt.util.Convert;
-import pocminer.POCMiner;
+import burst.miner.POCMiner;
 
 public class MinerCom extends UntypedActor {
 	

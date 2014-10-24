@@ -16,7 +16,7 @@ import scala.concurrent.duration.*;
 import burst.miner.MinerSupr;
 import nxt.util.Convert;
 import nxt.Nxt;
-import pocminer.POCMiner;
+import burst.miner.POCMiner;
 
 public class MinerPoolCom extends UntypedActor {
 
