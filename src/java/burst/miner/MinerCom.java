@@ -64,9 +64,23 @@ public class MinerCom extends UntypedActor {
 			}*/
 		}
 		else if(message instanceof MinerSupr.msgSubmitResult) {
-            POCMiner.miningState.bestResultAccountId = Long.toString(((MinerSupr.msgSubmitResult)message).accountId);
-            POCMiner.miningState.bestResultNonce = Long.toString(((MinerSupr.msgSubmitResult)message).nonce);
-            POCMiner.miningState.bestResultDeadline = ((MinerSupr.msgSubmitResult)message).result.toString();
+			Miner.msgBestResult result = new Miner.msgBestResult(
+					((MinerSupr.msgSubmitResult)message).accountId, 
+					((MinerSupr.msgSubmitResult)message).nonce, 
+					((MinerSupr.msgSubmitResult)message).result);
+			
+			boolean addressFound = false;
+			for(int i=0 ; i<POCMiner.miningState.results.size() ; i++) {
+				if(POCMiner.miningState.results.get(i).bestaddress == result.bestaddress) {
+					if(POCMiner.miningState.results.get(i).bestResult.compareTo(result.bestResult) > 0) {
+						POCMiner.miningState.results.set(i,result);
+					}
+					addressFound = true;
+				}
+			}
+			if(!addressFound){
+				POCMiner.miningState.results.add(result);
+			}
             
 			System.out.println("Submitting local share");
 			try {

@@ -24,9 +24,20 @@ public final class GetMiningState extends APIServlet.APIRequestHandler {
         response.put("plotDirPath", miningState.plotDirPath);
         response.put("pooled", miningState.pooled);
         response.put("running", miningState.running);
-        response.put("bestResultAccountId", miningState.bestResultAccountId);
-        response.put("bestResultNonce", miningState.bestResultNonce);
-        response.put("bestResultDeadline", miningState.bestResultDeadline);
+        
+        if(miningState.results != null) {
+        	List<JSONObject> resultList = new ArrayList<JSONObject>();
+        	for(Miner.msgBestResult result : miningState.results ) {
+        		JSONObject resultJson = new JSONObject();
+        		
+        		resultJson.put("accountId",Long.toString(result.bestaddress));
+        		resultJson.put("nonce",Long.toString(result.bestnonce));
+        		resultJson.put("deadline",result.bestResult.toString());
+        		
+        		resultList.add(resultJson);
+        	}
+        	response.put("results", resultList);
+        }
         
         if(miningState.plots != null) {
         	List<JSONObject> plotInfoList = new ArrayList<JSONObject>();

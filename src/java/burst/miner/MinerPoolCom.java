@@ -82,11 +82,28 @@ public class MinerPoolCom extends UntypedActor {
 		}
 		else if(message instanceof MinerPoolSupr.msgAddResult) {
 			MinerPoolSupr.msgAddResult newresult = (MinerPoolSupr.msgAddResult)message;
-            POCMiner.miningState.bestResultAccountId = Long.toString(newresult.address);
-            POCMiner.miningState.bestResultNonce = Long.toString(newresult.nonce);
-            POCMiner.miningState.bestResultDeadline = newresult.deadline.toString();
+			Miner.msgBestResult result = new Miner.msgBestResult( newresult.address, newresult.nonce, newresult.deadline);
+			if(this.miningAPIPath.toLowerCase() == "pool") {
+				POCMiner.miningState.results.add(result);
+			}
+			else {
+				boolean addressFound = false;
+				for(int i=0 ; i<POCMiner.miningState.results.size() ; i++) {
+					if(POCMiner.miningState.results.get(i).bestaddress == result.bestaddress) {
+						if(POCMiner.miningState.results.get(i).bestResult.compareTo(result.bestResult) > 0) {
+							POCMiner.miningState.results.set(i,result);
+						}
+						addressFound = true;
+					}
+				}
+				if(!addressFound){
+					POCMiner.miningState.results.add(result);
+				}
+			}
+
 			results += Convert.toUnsignedLong(newresult.address) + ":" + Convert.toUnsignedLong(newresult.nonce) + ":" + newresult.height + "\n";
 		}
+		/*
         else if(message instanceof MinerPoolSupr.msgSubmitResult) {
 			try {
                 POCMiner.miningState.bestResultAccountId = Long.toString(((MinerSupr.msgSubmitResult)message).accountId);
@@ -113,6 +130,7 @@ public class MinerPoolCom extends UntypedActor {
 				System.out.println("Error: Failed to submit nonce");
 			}
 		}
+		*/
 		else if(message instanceof MinerPoolSupr.msgFlush) {
 			System.out.println("Submitting shares to pool (flush)");
 			try {
@@ -126,19 +144,27 @@ public class MinerPoolCom extends UntypedActor {
                             .content(new StringContentProvider(results))
                             .timeout(this.miningInfoTimeout, TimeUnit.SECONDS)
                             .send();
+                    
+                    if(response != null) {
+                        String submitResult = response.getContentAsString();
+                        System.out.println(submitResult);
+                    }
                 }
                 else {
-                    response = client.POST(POCMiner.getUrl() + this.miningAPIPath)
-                        .param("requestType", "submitNonce")
-                        .param("accountId", POCMiner.miningState.bestResultAccountId)
-                        .param("nonce", POCMiner.miningState.bestResultNonce)
-                        .timeout(this.miningInfoTimeout, TimeUnit.SECONDS)
-                        .send();
-                }
-                
-                if(response != null) {
-                    String submitResult = response.getContentAsString();
-                    System.out.println(submitResult);
+                	for(int i=0 ; i<POCMiner.miningState.results.size() ; i++) {
+                		Miner.msgBestResult result = POCMiner.miningState.results.get(i);
+                		response = client.POST(POCMiner.getUrl() + this.miningAPIPath)
+                                .param("requestType", "submitNonce")
+                                .param("accountId", Long.toString(result.bestaddress))
+                                .param("nonce", Long.toString(result.bestnonce))
+                                .timeout(this.miningInfoTimeout, TimeUnit.SECONDS)
+                                .send();
+                            
+                        if(response != null) {
+                            String submitResult = response.getContentAsString();
+                            System.out.println(submitResult);
+                        }
+                	}
                 }
 			}
 			catch(Exception e) {

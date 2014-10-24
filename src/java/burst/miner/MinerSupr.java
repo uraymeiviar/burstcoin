@@ -42,6 +42,7 @@ public class MinerSupr extends UntypedActor {
 			if(miner != null) {
 				getContext().stop(miner);
 			}
+			POCMiner.miningState.results.clear();
 			miner = getContext().actorOf(Props.create(Miner.class, state, loadedPassPhrases));
 		}
 		else if(message instanceof Miner.msgBestResult) {

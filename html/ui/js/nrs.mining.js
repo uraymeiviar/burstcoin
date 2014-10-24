@@ -23,23 +23,25 @@ var NRS = (function(NRS, $, undefined) {
 	NRS.updateMiningState = function() {
 		NRS.sendRequest("getMiningState", {
 		}, function(response) {
-			var rows = "";
-			if(response.hasOwnProperty('plots')) {
-				rows += '<tr>';
-				for(var plot in response.plots) {
-					var accountRS = NRS.convertNumericToRSAccountFormat(response.plots[plot].accountId);
-					var fullSize = response.plots[plot].nonceCount / 4;
-					var fill = 100*response.plots[plot].sizeMB/fullSize;
-					rows += "<td><a href='#' class=\"fixedWidthFont\" data-user='" + NRS.getAccountFormatted(accountRS, "account") + "' class='user_info'>" + NRS.getAccountTitle(accountRS, "account") + "</a></td>"
-					rows += '<td>'+response.plots[plot].startNonce+'</td>';
-					rows += '<td>'+response.plots[plot].nonceCount+'</td>';
-					rows += '<td>'+response.plots[plot].stagger+'</td>';
-					rows += '<td>'+response.plots[plot].sizeMB+'</td>';
-					rows += '<td>'+fill.toFixed(2)+'</td>';
+			if(NRS.currentPage == "mining_page") {
+				var rows = "";
+				if(response.hasOwnProperty('plots')) {
+					rows += '<tr>';
+					for(var plot in response.plots) {
+						var accountRS = NRS.convertNumericToRSAccountFormat(response.plots[plot].accountId);
+						var fullSize = response.plots[plot].nonceCount / 4;
+						var fill = 100*response.plots[plot].sizeMB/fullSize;
+						rows += "<td><a href='#' class=\"fixedWidthFont\" data-user='" + NRS.getAccountFormatted(accountRS, "account") + "' class='user_info'>" + NRS.getAccountTitle(accountRS, "account") + "</a></td>"
+						rows += '<td>'+response.plots[plot].startNonce+'</td>';
+						rows += '<td>'+response.plots[plot].nonceCount+'</td>';
+						rows += '<td>'+response.plots[plot].stagger+'</td>';
+						rows += '<td>'+response.plots[plot].sizeMB+'</td>';
+						rows += '<td>'+fill.toFixed(2)+'</td>';
+					}
+					rows += '</tr>';
 				}
-				rows += '</tr>';
+				NRS.dataLoaded(rows);
 			}
-			NRS.dataLoaded(rows);
 		});	
 	}
 

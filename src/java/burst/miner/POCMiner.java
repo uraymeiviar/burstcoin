@@ -135,9 +135,7 @@ public class POCMiner {
         public boolean pooled;
         public boolean running;
         public List<Miner.PlotInfo> plots;
-        public String bestResultAccountId;
-        public String bestResultNonce;
-        public String bestResultDeadline;
+        public List<Miner.msgBestResult> results;
 		public MiningState() {
 			reset();
 		}
@@ -147,9 +145,7 @@ public class POCMiner {
             this.pooled = false;
             this.running = false;
             this.plotDirPath = Nxt.getStringProperty("nxt.miningPlotDir");
-            this.bestResultAccountId = "";
-            this.bestResultNonce = "";
-            this.bestResultDeadline = "";
+            this.results = new ArrayList<Miner.msgBestResult>();
 
             refreshPlotList();
         }
@@ -161,7 +157,6 @@ public class POCMiner {
                 File[] files = plotDir.listFiles();
                 
                 for(int i = 0; i < files.length; i++) {
-                    Logger.logMessage("plot file "+files[i].getName());
                     Miner.PlotInfo pi = new Miner.PlotInfo(files[i]);
                     this.plots.add(pi);
                 }

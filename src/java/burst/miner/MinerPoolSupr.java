@@ -34,8 +34,10 @@ public class MinerPoolSupr extends UntypedActor {
 			if(miner != null) {
 				getContext().stop(miner);
 			}
+			POCMiner.miningState.results.clear();
 			miner = getContext().actorOf(Props.create(MinerPool.class, state));
 		}
+		/*
 		else if(message instanceof Miner.msgBestResult) {
 			System.out.print("New best: ");
 			System.out.print(Convert.toUnsignedLong(((MinerPool.msgBestResult)message).bestaddress));
@@ -46,6 +48,7 @@ public class MinerPoolSupr extends UntypedActor {
                                              ((Miner.msgBestResult)message).bestResult,
                                          ((Miner.msgBestResult)message).bestnonce), getSelf());
 		}
+		*/
 		else if(message instanceof MinerPoolSupr.msgAddResult) {
 			System.out.println("Found pool share: " + Convert.toUnsignedLong(((MinerPoolSupr.msgAddResult)message).address) + ":" + Convert.toUnsignedLong(((MinerPoolSupr.msgAddResult)message).nonce));
 			poolCom.tell(message, getSelf());
@@ -75,7 +78,7 @@ public class MinerPoolSupr extends UntypedActor {
 			this.targetDeadline = targetDeadline;
 		}
 	}
-	
+	/*
 	public static class msgSubmitResult {
         public long accountId;
         public BigInteger result;
@@ -87,7 +90,7 @@ public class MinerPoolSupr extends UntypedActor {
 			this.nonce = nonce;
 		}
 	}
-	
+	*/
 	public static class msgAddResult {
 		public long address;
 		public long nonce;

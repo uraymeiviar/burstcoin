@@ -1,14 +1,10 @@
 package nxt.http;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
 
-import burst.miner.Miner;
 import burst.miner.POCMiner;
 import nxt.http.APIServlet.APIRequestHandler;
 
