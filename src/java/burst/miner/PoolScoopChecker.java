@@ -30,7 +30,6 @@ public class PoolScoopChecker extends UntypedActor {
 			md.update(cs.scoops, (int) (i * MiningPlot.SCOOP_SIZE), MiningPlot.SCOOP_SIZE);
 			byte[] hash = md.digest();
 			BigInteger num = new BigInteger(1, new byte[] {hash[7], hash[6], hash[5], hash[4], hash[3], hash[2], hash[1], hash[0]});
-			//BigInteger num = new BigInteger(1, md.digest());
 			BigInteger deadline = num.divide(BigInteger.valueOf(cs.baseTarget));
 			if(deadline.compareTo(BigInteger.valueOf(cs.targetDeadline)) <= 0) {
 				sender.tell(new MinerPoolSupr.msgAddResult(cs.address, cs.startnonce + i, cs.height, deadline), sender);

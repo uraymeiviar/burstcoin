@@ -30,15 +30,15 @@ public class MinerPool extends UntypedActor {
 	
 	ActorRef reader;
 	ActorRef poolChecker;
-	
+	/*
 	BigInteger bestresult;
 	long bestaddr;
 	long bestnonce;
 	Boolean newbest;
-	
+	*/
 	int scoopnum;
 	
-	Cancellable tick = null;
+	//Cancellable tick = null;
 	
 	public MinerPool(MinerPoolSupr.NetPoolState state) {
 		super();
@@ -50,6 +50,7 @@ public class MinerPool extends UntypedActor {
 		if(message instanceof ScoopReader.msgScoopChunk) {
             poolChecker.tell(new PoolScoopChecker.msgCheckPoolScoops((ScoopReader.msgScoopChunk)message, state.gensig, state.baseTarget, state.targetDeadline, state.height), getSelf());
 		}
+		/*
 		else if(message instanceof ScoopChecker.msgBestScoop) {
 			ScoopChecker.msgBestScoop bs = (msgBestScoop) message;
 			if(bs.result.compareTo(bestresult) < 0) {
@@ -58,16 +59,18 @@ public class MinerPool extends UntypedActor {
 				bestnonce = bs.nonce;
 				newbest = true;
 			}
-		}
+		}*/
 		else if(message instanceof MinerPoolSupr.msgAddResult) {
 			getContext().parent().tell(message, getSelf());
 		}
+		/*
 		else if(message instanceof msgSendResults) {
 			if(newbest) {
 				newbest = false;
 				getContext().parent().tell(new msgBestResult(bestaddr, bestnonce, bestresult), getSelf());
 			}
 		}
+		*/
 		else if(message instanceof msgReadFlush) {
 			poolChecker.tell(new msgCheckFlush(), getSelf());
 		}
@@ -84,7 +87,7 @@ public class MinerPool extends UntypedActor {
 	public void preStart() {
 		init();
 	}
-	
+	/*
 	@Override
 	public void postStop() {
 		if(tick != null) {
@@ -92,12 +95,14 @@ public class MinerPool extends UntypedActor {
 			tick = null;
 		}
 	}
-	
+	*/
 	private void init() {
+		/*
 		bestresult = new BigInteger("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16);
 		bestaddr = 0;
 		bestnonce = 0;
 		newbest = false;
+		*/
 
 		reader = getContext().actorOf(Props.create(ScoopReader.class));
 		//checker = getContext().actorOf(Props.create(ScoopChecker.class));
@@ -120,15 +125,15 @@ public class MinerPool extends UntypedActor {
             reader.tell(new ScoopReader.msgReadScoops(pi, scoopnum), getSelf());
 		}
 		reader.tell(new msgReadFlush(), getSelf());
-		
+		/*
 		tick = getContext().system().scheduler().schedule(Duration.create(10, TimeUnit.SECONDS),
 				Duration.create(5, TimeUnit.SECONDS),
 				getSelf(),
 				new msgSendResults(),
 				getContext().system().dispatcher(),
-				null);
+				null);*/
 	}
-	
+	/*
 	public static class msgBestResult {
 		public long bestaddress;
 		public long bestnonce;
@@ -139,7 +144,7 @@ public class MinerPool extends UntypedActor {
             this.bestResult = bestResult;
 		}
 	}
-	
+	*/
 	public static class msgSendResults {}
 	
 	public static class msgReadFlush {}
