@@ -208,7 +208,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: sans-serif;
+
 }
 /* Page Header */
 .page-header {
@@ -2739,6 +2739,7 @@ a.list-group-item:hover {
 	border-right: none !important;
 	border-bottom:1px solid #91C5BD; !important;
 	margin-bottom: 0 !important;
+  color: #5BFDD8
 }
 
 .content-splitter-sidebar .list-group-item:first-child {
@@ -2828,13 +2829,12 @@ tr.your-order td {
 }
 
 div.tentative {
-  background-color: #c4e1ec !important;
+  background-color: rgba(0, 255, 216, 035) !important
   padding:5px;
 }
 
 tr.tentative td {
-	font-style: italic !important;
-	background-color: #DAE3F2 !important;
+	background-color: rgba(0, 255, 216, 0.35) !important
 }
 
 tr.tentative td a {
@@ -3293,6 +3293,8 @@ input:invalid {
 
 #asset_description {
   word-wrap: break-word;
+  margin-bottom: 16px;
+  font-size:14px;
 }
 
 hr {
@@ -3338,7 +3340,7 @@ hr {
 }
 
 .owns_asset {
-  background-color:#D6E9E3;
+  background-color:#2D3F3E;
 }
 
 .asset_owner td {
@@ -3346,11 +3348,11 @@ hr {
 }
 
 #asset_exchange_sidebar_content .list-group-item {
-  border-right:5px solid transparent !important;
+
 }
 
 #asset_exchange_sidebar_content .list-group-item.owns_asset.active, #asset_exchange_sidebar_content .list-group-item.owns_asset:hover {
-  border-right:5px solid #FFE545 !important;
+
 }
 
 #asset_exchange_sidebar_content .glyphicon {

@@ -135,8 +135,6 @@ public final class API {
             connector.setReuseAddress(true);
             apiServer.addConnector(connector);
 
-            HandlerList apiHandlers = new HandlerList();
-
             ServletContextHandler apiHandler = new ServletContextHandler();
             String apiResourceBase = Nxt.getStringProperty("nxt.apiResourceBase");
             if (apiResourceBase != null) {

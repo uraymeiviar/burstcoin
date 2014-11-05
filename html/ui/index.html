@@ -939,25 +939,21 @@
 						         		<div id="asset_details" style="display:none;">
 							            	<div class="alert alert-danger alert-no-icon" id="asset_exchange_duplicates_warning" style="display:none" data-i18n="[html]asset_exchange_duplicates_warning"></div>
 
-							            	<div style="float:right;color: #999999;background:white;padding:5px;border:1px solid #ccc;border-radius:3px">
+							            	<div style="float:right;background:rgba(64, 150, 114, 0.15);padding:5px;">
 							            		<strong data-i18n="account">Account</strong>: <span id="asset_account"></span><br />
 					                        	<span id="asset_id_dropdown" class="dropdown" style="margin-bottom:0;">
-					                        		<strong data-i18n="asset_id">Asset Id</strong>: &nbsp;<a href="#" id="asset_id" class="dropdown-toggle" data-toggle="dropdown"></a>
+					                        		<strong data-i18n="asset_id">Asset Id</strong>: &nbsp;<a href="#" id="asset_id" class="dropdown-toggle" data-toggle="dropdown"></a><br/>
+                                                    <strong data-i18n="quantity">Quantity</strong>: <span id="asset_quantity"></span><br/>
+                                                <strong data-i18n="asset_decimals">Asset Decimals</strong>: <span id="asset_decimals"></span>
 													<ul class="dropdown-menu" role="menu" style="right:0;left:auto;text-align:left;">
 														<li role="presentation" class="copy_link"><a role="menuitem" tabindex="-1" href="#" data-type="asset_id" data-i18n="copy_asset_id">Copy Asset ID</a></li>
 														<li role="presentation" class="remote_only copy_link"><a role="menuitem" tabindex="-1" href="#" data-type="asset_link" data-i18n="copy_asset_link">Copy Asset Link</a></li>
 													</ul>
 												</span>
 							            	</div>
-							                <h3 style="margin-top:0" id="asset_name"></h3>
-
-							                <div style="color:#838383;margin-bottom:5px">
-								                <strong data-i18n="quantity">Quantity</strong>: <span id="asset_quantity"></span>
-								                <strong data-i18n="asset_decimals">Asset Decimals</strong>: <span id="asset_decimals"></span>
-							                </div>
+							                <h1 style="margin-top:0" id="asset_name"></h1>
 
 							                <div id="asset_description"></div>
-							                <hr />
 							                      
 							                <div class="row">
 							                	<div class="col-md-6">
