@@ -37,6 +37,7 @@ public final class API {
     private static final int TESTNET_API_PORT = 6876;
 
     static final Set<String> allowedBotHosts;
+    static final boolean enableDebugAPI = Nxt.getBooleanProperty("nxt.enableDebugAPI");
 
     private static final Server apiServer;
 
@@ -79,8 +80,8 @@ public final class API {
                 sslContextFactory.setExcludeCipherSuites("SSL_RSA_WITH_DES_CBC_SHA", "SSL_DHE_RSA_WITH_DES_CBC_SHA",
                         "SSL_DHE_DSS_WITH_DES_CBC_SHA", "SSL_RSA_EXPORT_WITH_RC4_40_MD5", "SSL_RSA_EXPORT_WITH_DES40_CBC_SHA",
                         "SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA", "SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA");
-                
-                connector = new ServerConnector(apiServer,
+                sslContextFactory.setExcludeProtocols("SSLv3");
+                connector = new ServerConnector(apiServer, new SslConnectionFactory(sslContextFactory, "http/1.1"),
                                                 new SslConnectionFactory(sslContextFactory, "http/1.1"),
                                                 new HttpConnectionFactory(https_config));
                 
@@ -134,6 +135,8 @@ public final class API {
             connector.setReuseAddress(true);
             apiServer.addConnector(connector);
 
+            HandlerList apiHandlers = new HandlerList();
+
             ServletContextHandler apiHandler = new ServletContextHandler();
             String apiResourceBase = Nxt.getStringProperty("nxt.apiResourceBase");
             if (apiResourceBase != null) {
@@ -166,6 +169,9 @@ public final class API {
             }
 
             apiHandler.addServlet(APITestServlet.class, "/test");
+            if (enableDebugAPI) {
+                apiHandler.addServlet(DbShellServlet.class, "/dbshell");
+            }
 
             if (Nxt.getBooleanProperty("nxt.apiServerCORS")) {
                 FilterHolder filterHolder = apiHandler.addFilter(CrossOriginFilter.class, "/*", null);
@@ -213,7 +219,7 @@ public final class API {
             try {
                 apiServer.stop();
             } catch (Exception e) {
-                Logger.logDebugMessage("Failed to stop API server", e);
+                Logger.logShutdownMessage("Failed to stop API server", e);
             }
         }
     }
