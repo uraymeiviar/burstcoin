@@ -88,10 +88,11 @@ public final class API {
                 boolean enableRedirectionToSSL = Nxt.getBooleanProperty("nxt.apiRedirectToSSL");
                 if(enableRedirectionToSSL){
                     int nonSSLSourcePort = Nxt.getIntProperty("nxt.apiRedirectToSSLSourcePort");
+                    int redirectTargetPort = Nxt.getIntProperty("nxt.apiRedirectToSSLDestPort");
                     HttpConfiguration http_config = new HttpConfiguration();
                     http_config.addCustomizer(new SecureRequestCustomizer());
                     http_config.setSecureScheme("https");
-                    http_config.setSecurePort(port);
+                    http_config.setSecurePort(redirectTargetPort);
                     
                     ServerConnector httpConnector = new ServerConnector(apiServer);
                     httpConnector.addConnectionFactory(new HttpConnectionFactory(http_config));
@@ -127,6 +128,20 @@ public final class API {
                 
             } else {
                 connector = new ServerConnector(apiServer);
+            }
+            
+            boolean enableLocalAPIConnector = Nxt.getBooleanProperty("nxt.enableLocalAPIConnector");
+            if(enableLocalAPIConnector) {
+                ServerConnector localConnector = new ServerConnector(apiServer);
+                int localConnectorPort = Nxt.getIntProperty("nxt.apiLocalPort");
+                
+                localConnector.setPort(localConnectorPort);
+                localConnector.setHost("127.0.0.1");
+                localConnector.setIdleTimeout(Nxt.getIntProperty("nxt.apiServerIdleTimeout"));
+                localConnector.setReuseAddress(true);
+                apiServer.addConnector(localConnector);
+                
+                Logger.logMessage("Added local API server on port: " + localConnectorPort);
             }
 
             connector.setPort(port);

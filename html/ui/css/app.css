@@ -20,6 +20,10 @@
   width: 100%;
   overflow: hidden;
   z-index: 20;
+  background: url('../earth.jpg');
+  background-repeat: no-repeat
+  background-position:50% 50%;  /* Sets reference point to scale from */
+  background-size:cover;
 }
 
 .spanLabel {
@@ -46,12 +50,12 @@
 
 .burstagline{
   font-size:0.45em;
-  color:rgba(0,0,0,0.65);
+  color:rgba(12,145,115,0.65);
 }
 
 .burstfeature{
   font-size:0.35em;
-  color:rgba(0,0,0,0.5);
+  color:rgba(0,255,216,0.5);
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
@@ -1855,7 +1859,9 @@ body > .header .logo .icon {
 .btn.btn-block {
   font-size: 15px;
   padding: 10px;
+  color: #00FFCF;
 }
+
 .btn.btn-block.btn-sm {
   font-size: 13px;
   padding: 7px;
