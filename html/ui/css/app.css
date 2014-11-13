@@ -22,8 +22,10 @@
   z-index: 20;
   background: url('../earth.jpg');
   background-repeat: no-repeat
-  background-position:50% 50%;  /* Sets reference point to scale from */
-  background-size:cover;
+  background-position: center center;
+  background-size:110% 110%;
+  transition: 1s ease;
+    transition-property: background-position;
 }
 
 .spanLabel {
@@ -38,7 +40,7 @@
   left:55%;
   bottom:10%;
   font-size:3em;
-  color:#91DDD3;
+  color:#00FFBB;
   font-family: 'Orbitron', sans-serif;
   line-height:0.65;
   width:38%;
@@ -50,12 +52,12 @@
 
 .burstagline{
   font-size:0.45em;
-  color:rgba(12,145,115,0.65);
+  color:rgba(0, 255, 148, 0.8);
 }
 
 .burstfeature{
-  font-size:0.35em;
-  color:rgba(0,255,216,0.5);
+  font-size:0.4em;
+  color:rgba(0, 255, 148, 0.5);
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
@@ -2210,14 +2212,23 @@ body > .header .logo .icon {
 /* Contains the password input and the login button */
 
 .lockscreen-item > .lockscreen-credentials input {
-  border: 1px solid #91DDD3;
+  border: 1px solid rgba(0, 255, 148, 0.8);
+  border-right:0px solid;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size:18px;
+  background-color: rgba(52, 87, 75, 0.66);
+}
+.lockscreen-item > .lockscreen-credentials input:focus{
+  border: 1px solid rgba(0, 255, 148, 0.8);
+  border-right:0px solid;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:18px;
+  background-color: rgba(52, 87, 75, 0.66);
 }
 .lockscreen-item > .lockscreen-credentials .btn {
-  background-color: #91DDD3;
-  color:#236462;
-  border: 1px solid #91DDD3;
+  color:rgba(0, 255, 148, 0.8);
+  border: 1px solid rgba(0, 255, 148, 0.8);
+  background-color: rgba(52, 87, 75, 0.95);
 }
 /* Extra to give the user an option to navigate the website [optional]*/
 #registration_link {

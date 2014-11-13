@@ -186,4 +186,23 @@ function lockscreenAnim() {
     
 };
 
+var amountMovedX = 0;
+var amountMovedY = 0;
+
+function moveBackground(){
+    $('#large-header').css('background-position', amountMovedX + 'px ' + amountMovedY + 'px');
+    if(animateHeader){
+        setTimeout(moveBackground,500);
+    }
+}
+
+$('#large-header').mousemove(function(e){
+    var height = $(this).height();
+    var width  = $(this).width();
+    amountMovedX = -0.1*(e.pageX );
+    amountMovedY = -0.1*(e.pageY );
+});
+
+
 lockscreenAnim();
+moveBackground();
